@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>介绍 · GitBook</title>
+        <title>iOS、Mac 创建文件夹是无视大小写的。 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,6 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="1525959920.html" />
+    
+    
+    <link rel="prev" href="1525959918.html" />
     
 
     </head>
@@ -85,7 +89,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -190,7 +194,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.7" data-path="1525959919.html">
+        <li class="chapter active" data-level="1.2.7" data-path="1525959919.html">
             
                 <a href="1525959919.html">
             
@@ -1537,7 +1541,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >介绍</a>
+        <a href="." >iOS、Mac 创建文件夹是无视大小写的。</a>
     </h1>
 </div>
 
@@ -1552,7 +1556,65 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="muzico-&#x7684;&#x4E16;&#x754C;">Muzico &#x7684;&#x4E16;&#x754C;</h1>
+                                <h1 id="ios&#x3001;mac-&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x5939;&#x662F;&#x65E0;&#x89C6;&#x5927;&#x5C0F;&#x5199;&#x7684;&#x3002;">iOS&#x3001;Mac &#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x5939;&#x662F;&#x65E0;&#x89C6;&#x5927;&#x5C0F;&#x5199;&#x7684;&#x3002;</h1>
+<p>&#x65E0;&#x610F;&#x95F4;&#x53D1;&#x73B0;&#x7684;&#x4E00;&#x4E2A;&#x95EE;&#x9898;&#xFF01;&#xFF01;&#xFF01;
+iOS &#x5C45;&#x7136;&#x65E0;&#x6CD5;&#x8BC6;&#x522B;&#x6587;&#x4EF6;&#x5939; a &#x548C; A&#xFF0C;&#x8BA4;&#x4E3A;&#x662F;&#x540C;&#x4E00;&#x4E2A;&#xFF01;&#x6240;&#x4EE5;&#x5728;&#x540C;&#x4E00;&#x76EE;&#x5F55;&#x4E0B;&#x65E0;&#x6CD5;&#x5171;&#x5B58;&#x3002;</p>
+<pre><code>{
+        NSError* error = nil;
+        NSString* path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingFormat:@&quot;/output/a&quot;];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&amp;error];
+        }
+
+        if (error) {
+            NSLog(@&quot;a %@&quot;, error.localizedDescription);
+        }
+    }
+    {
+        NSError* error = nil;
+        NSString* path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingFormat:@&quot;/output/A&quot;];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&amp;error];
+        }
+
+        if (error) {
+            NSLog(@&quot;A %@&quot;, error.localizedDescription);
+        }
+    }
+</code></pre><p>&#x521B;&#x5EFA;&#x6587;&#x4EF6;&#x5939;a &#x548C; A&#xFF0C;&#x4E3A;&#x5565;A&#x521B;&#x5EFA;&#x5931;&#x8D25;&#x3002;
+The file &#x201C;A&#x201D; couldn&#x2019;t be saved in the folder &#x201C;output&#x201D;.</p>
+<p>&#x7136;&#x540E;&#x8BD5;&#x8BD5;&#x91CD;&#x540D;&#x770B;&#x770B;&#x3002;</p>
+<pre><code>{
+        NSError* error = nil;
+        NSString* path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingFormat:@&quot;/output/a&quot;];
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&amp;error];
+        }
+
+        if (error) {
+            NSLog(@&quot;a %@&quot;, error.localizedDescription);
+        }
+    }
+    {
+        NSError* error = nil;
+        NSString* path0 = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingFormat:@&quot;/output/A&quot;];
+        NSString* path = [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject] stringByAppendingFormat:@&quot;/output/AAA&quot;];
+
+        if ([[NSFileManager defaultManager] fileExistsAtPath:path] == NO) {
+            [[NSFileManager defaultManager] createDirectoryAtPath:path withIntermediateDirectories:YES attributes:nil error:&amp;error];
+            NSLog(@&quot;AAA %@&quot;, error.localizedDescription);
+
+            if (error == nil) {
+                [[NSFileManager defaultManager] moveItemAtPath:path toPath:path0 error:&amp;error];
+
+                NSLog(@&quot;AA %@&quot;, error.localizedDescription);
+            }
+        }
+    }
+</code></pre><p>AA &#x201C;AAA&#x201D; couldn&#x2019;t be moved to &#x201C;output&#x201D; because an item with the same name already exists.</p>
+<p>&#x770B;&#x5230;&#x9519;&#x8BEF;&#x4FE1;&#x606F;&#x4E4B;&#x540E;&#xFF0C;&#x5F97;&#x5230;&#x7684;&#x7ED3;&#x8BBA;&#x662F;&#x9898;&#x76EE;&#x3002;&#x3002;&#x3002;
+Mac&#x76F4;&#x63A5;&#x521B;&#x5EFA;&#x95EE;&#x9898;&#x5C31;&#x53EF;&#x4EE5;&#x8BD5;&#x4E86;&#x3002;</p>
+<p>&#x521B;&#x5EFA;&#x8DEF;&#x5F84;&#xFF0C;&#x5927;&#x5C0F;&#x5199;&#x6CA1;&#x6709;&#x533A;&#x522B;&#xFF0C;&#x6240;&#x4EE5;&#x5B9A;&#x4E49;&#x8981;&#x8C28;&#x614E;&#xFF01;</p>
 
                                 
                                 </section>
@@ -1580,6 +1642,14 @@
 
             
                 
+                <a href="1525959918.html" class="navigation navigation-prev " aria-label="Previous page: TabBar + NavC + VC 必须知道的~">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="1525959920.html" class="navigation navigation-next " aria-label="Next page: navigationItem.leftBarButtonItem iOS 11 大小变了">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -1588,7 +1658,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"介绍","level":"1.1","depth":1,"next":{"title":"iOS","level":"1.2","depth":1,"ref":"","articles":[{"title":"iOS \"This app is not allowed to query for scheme tel\"","level":"1.2.1","depth":2,"path":"1525959913.md","ref":"1525959913.md","articles":[]},{"title":"iOS Model 保存到数据库的半小时简单设计","level":"1.2.2","depth":2,"path":"1525959914.md","ref":"1525959914.md","articles":[]},{"title":"iOS UICollectionViewCell 高度自适应","level":"1.2.3","depth":2,"path":"1525959915.md","ref":"1525959915.md","articles":[]},{"title":"iOS textField 设置 placeholder 颜色、大小","level":"1.2.4","depth":2,"path":"1525959916.md","ref":"1525959916.md","articles":[]},{"title":"iOS 用到的 16进制颜色","level":"1.2.5","depth":2,"path":"1525959917.md","ref":"1525959917.md","articles":[]},{"title":"TabBar + NavC + VC 必须知道的~","level":"1.2.6","depth":2,"path":"1525959918.md","ref":"1525959918.md","articles":[]},{"title":"iOS、Mac 创建文件夹是无视大小写的。","level":"1.2.7","depth":2,"path":"1525959919.md","ref":"1525959919.md","articles":[]},{"title":"navigationItem.leftBarButtonItem iOS 11 大小变了","level":"1.2.8","depth":2,"path":"1525959920.md","ref":"1525959920.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-05-10T16:18:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"iOS、Mac 创建文件夹是无视大小写的。","level":"1.2.7","depth":2,"next":{"title":"navigationItem.leftBarButtonItem iOS 11 大小变了","level":"1.2.8","depth":2,"path":"1525959920.md","ref":"1525959920.md","articles":[]},"previous":{"title":"TabBar + NavC + VC 必须知道的~","level":"1.2.6","depth":2,"path":"1525959918.md","ref":"1525959918.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959919.md","mtime":"2018-05-10T15:10:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>介绍 · GitBook</title>
+        <title>iOS UICollectionViewCell 高度自适应 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,6 +57,10 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="1525959916.html" />
+    
+    
+    <link rel="prev" href="1525959914.html" />
     
 
     </head>
@@ -85,7 +89,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -138,7 +142,7 @@
             
         </li>
     
-        <li class="chapter " data-level="1.2.3" data-path="1525959915.html">
+        <li class="chapter active" data-level="1.2.3" data-path="1525959915.html">
             
                 <a href="1525959915.html">
             
@@ -1537,7 +1541,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >介绍</a>
+        <a href="." >iOS UICollectionViewCell 高度自适应</a>
     </h1>
 </div>
 
@@ -1552,7 +1556,72 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="muzico-&#x7684;&#x4E16;&#x754C;">Muzico &#x7684;&#x4E16;&#x754C;</h1>
+                                <h1 id="ios-uicollectionviewcell-&#x9AD8;&#x5EA6;&#x81EA;&#x9002;&#x5E94;">iOS UICollectionViewCell &#x9AD8;&#x5EA6;&#x81EA;&#x9002;&#x5E94;</h1>
+<p>&#x6548;&#x679C;&#x56FE;:
+<img src="assets/048550D0-0870-4028-A950-DC682DBED6F6.png" alt="048550D0-0870-4028-A950-DC682DBED6F6"></p>
+<p>cell&#x7684;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>- (void) setupUI {
+    self.backgroundColor = [QSKit color:@&quot;#ffffff&quot;];
+
+    UILabel* nameLabel = [UILabel new];
+    nameLabel.font = [UIFont fontWithName:@&quot;PingFangSC-Regular&quot; size:18];
+    nameLabel.textColor = [QSKit color:@&quot;#444444&quot;];
+    [self.contentView addSubview:nameLabel];
+    [nameLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(18);
+        make.left.mas_equalTo(18);
+    }];
+    self.nameLabel = nameLabel;
+
+    UILabel* phoneLabel = [UILabel new];
+    phoneLabel.font = [UIFont fontWithName:@&quot;PingFangSC-Regular&quot; size:18];
+    phoneLabel.textColor = [QSKit color:@&quot;#444444&quot;];
+    [self.contentView addSubview:phoneLabel];
+    [phoneLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(18);
+        make.right.mas_equalTo(-18);
+    }];
+    self.phoneLabel = phoneLabel;
+
+    UILabel* addressLabel = [UILabel new];
+    addressLabel.font = [UIFont fontWithName:@&quot;PingFangSC-Regular&quot; size:18];
+    addressLabel.textColor = [QSKit color:@&quot;#888888&quot;];
+    addressLabel.numberOfLines = 0;
+    [self.contentView addSubview:addressLabel];
+    [addressLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.mas_equalTo(nameLabel.mas_bottom).offset(6);
+        make.left.mas_equalTo(18);
+        make.right.mas_equalTo(-18);
+    }];
+    self.addressLabel = addressLabel;
+}
+
+- (UICollectionViewLayoutAttributes *)preferredLayoutAttributesFittingAttributes:(UICollectionViewLayoutAttributes *)layoutAttributes {
+    UIView* collectionView = self.superview;
+    if ([collectionView isKindOfClass:[UICollectionView class]]) {
+        [self.contentView mas_updateConstraints:^(MASConstraintMaker *make) {
+            make.left.top.mas_equalTo(0);
+            make.width.mas_equalTo(collectionView.bounds.size.width);
+            make.bottom.mas_equalTo(self.addressLabel.mas_bottom).offset(15);
+        }];
+    }
+
+    [self setNeedsLayout];
+    [self layoutIfNeeded];
+    CGSize size = [self.contentView systemLayoutSizeFittingSize:layoutAttributes.size];
+    CGRect cellFrame = layoutAttributes.frame;
+    cellFrame.size.height = size.height;
+    layoutAttributes.frame = cellFrame;
+
+    return layoutAttributes;
+}
+</code></pre><pre><code>UICollectionViewFlowLayout* collectionLayout = [UICollectionViewFlowLayout new];
+    collectionLayout.minimumLineSpacing = 12;
+    collectionLayout.minimumInteritemSpacing = 0;
+    collectionLayout.estimatedItemSize = CGSizeMake(600, 40);
+</code></pre><p>&#x6CE8;&#x610F;&#xFF1A;</p>
+<pre><code>collectionLayout.estimatedItemSize = CGSizeMake(600, 40);
+</code></pre><p>&#x6CA1;&#x6709;&#x8FD9;&#x53E5;&#x662F;&#x4E0D;&#x4F1A;&#x5B9E;&#x73B0;&#x81EA;&#x9002;&#x5E94;&#x7684;&#x6548;&#x679C;&#x3002;</p>
 
                                 
                                 </section>
@@ -1580,6 +1649,14 @@
 
             
                 
+                <a href="1525959914.html" class="navigation navigation-prev " aria-label="Previous page: iOS Model 保存到数据库的半小时简单设计">
+                    <i class="fa fa-angle-left"></i>
+                </a>
+                
+                
+                <a href="1525959916.html" class="navigation navigation-next " aria-label="Next page: iOS textField 设置 placeholder 颜色、大小">
+                    <i class="fa fa-angle-right"></i>
+                </a>
                 
             
         
@@ -1588,7 +1665,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"介绍","level":"1.1","depth":1,"next":{"title":"iOS","level":"1.2","depth":1,"ref":"","articles":[{"title":"iOS \"This app is not allowed to query for scheme tel\"","level":"1.2.1","depth":2,"path":"1525959913.md","ref":"1525959913.md","articles":[]},{"title":"iOS Model 保存到数据库的半小时简单设计","level":"1.2.2","depth":2,"path":"1525959914.md","ref":"1525959914.md","articles":[]},{"title":"iOS UICollectionViewCell 高度自适应","level":"1.2.3","depth":2,"path":"1525959915.md","ref":"1525959915.md","articles":[]},{"title":"iOS textField 设置 placeholder 颜色、大小","level":"1.2.4","depth":2,"path":"1525959916.md","ref":"1525959916.md","articles":[]},{"title":"iOS 用到的 16进制颜色","level":"1.2.5","depth":2,"path":"1525959917.md","ref":"1525959917.md","articles":[]},{"title":"TabBar + NavC + VC 必须知道的~","level":"1.2.6","depth":2,"path":"1525959918.md","ref":"1525959918.md","articles":[]},{"title":"iOS、Mac 创建文件夹是无视大小写的。","level":"1.2.7","depth":2,"path":"1525959919.md","ref":"1525959919.md","articles":[]},{"title":"navigationItem.leftBarButtonItem iOS 11 大小变了","level":"1.2.8","depth":2,"path":"1525959920.md","ref":"1525959920.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-05-10T16:18:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"iOS UICollectionViewCell 高度自适应","level":"1.2.3","depth":2,"next":{"title":"iOS textField 设置 placeholder 颜色、大小","level":"1.2.4","depth":2,"path":"1525959916.md","ref":"1525959916.md","articles":[]},"previous":{"title":"iOS Model 保存到数据库的半小时简单设计","level":"1.2.2","depth":2,"path":"1525959914.md","ref":"1525959914.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959915.md","mtime":"2018-05-10T15:18:11.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>介绍 · GitBook</title>
+        <title>RN 封装模板，及文档，以 FFFScrollView 为例 · GitBook</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -57,6 +57,8 @@
     <link rel="shortcut icon" href="gitbook/images/favicon.ico" type="image/x-icon">
 
     
+    <link rel="next" href="1525959922.html" />
+    
     
 
     </head>
@@ -85,7 +87,7 @@
         
         
     
-        <li class="chapter active" data-level="1.1" data-path="./">
+        <li class="chapter " data-level="1.1" data-path="./">
             
                 <a href="./">
             
@@ -235,7 +237,7 @@
             <ul class="articles">
                 
     
-        <li class="chapter " data-level="1.3.1" data-path="1525959921.html">
+        <li class="chapter active" data-level="1.3.1" data-path="1525959921.html">
             
                 <a href="1525959921.html">
             
@@ -1537,7 +1539,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href="." >介绍</a>
+        <a href="." >RN 封装模板，及文档，以 FFFScrollView 为例</a>
     </h1>
 </div>
 
@@ -1552,8 +1554,75 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="muzico-&#x7684;&#x4E16;&#x754C;">Muzico &#x7684;&#x4E16;&#x754C;</h1>
+                                <h1 id="rn-&#x5C01;&#x88C5;&#x6A21;&#x677F;&#xFF0C;&#x53CA;&#x6587;&#x6863;&#xFF0C;&#x4EE5;-fffscrollview-&#x4E3A;&#x4F8B;">RN &#x5C01;&#x88C5;&#x6A21;&#x677F;&#xFF0C;&#x53CA;&#x6587;&#x6863;&#xFF0C;&#x4EE5; FFFScrollView &#x4E3A;&#x4F8B;</h1>
+<p>FFFScrollView&#xFF0C;&#x5B9E;&#x9645;&#x4E0A;&#x662F;&#x5BF9; ScrollView &#x8FDB;&#x884C;&#x7B80;&#x5355;&#x7684;&#x5C01;&#x88C5;&#x3002;</p>
+<h3 id="props&#xFF08;&#x5C5E;&#x6027;&#xFF09;&#xFF1A;">props&#xFF08;&#x5C5E;&#x6027;&#xFF09;&#xFF1A;</h3>
+<pre><code>height&#xFF0C;&#x8BBE;&#x7F6E;&#x9AD8;&#x5EA6;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;100&#x3002;
+horizontal&#xFF0C;&#x662F;&#x5426;&#x6C34;&#x5E73;&#x65B9;&#x5411;&#x5C55;&#x793A;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;true&#x3002;
+showHorizontalScrollIndicator&#xFF0C;&#x662F;&#x5426;&#x5C55;&#x793A;&#x6C34;&#x5E73;&#x6EDA;&#x52A8;&#x6307;&#x793A;&#x7B26;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;false&#x3002;
+direction&#xFF0C;&#x65B9;&#x5411;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;&apos;row&apos;&#x3002;
+endPadding&#xFF0C;&#x5C3E;&#x7684;&#x8FB9;&#x8DDD;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;0&#x3002;
+startPadding&#xFF0C;&#x5934;&#x7684;&#x8FB9;&#x8DDD;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;0&#x3002;
+backgroundColor&#xFF0C;&#x80CC;&#x666F;&#x989C;&#x8272;&#xFF0C;&#x9ED8;&#x8BA4;&#x503C;&#x4E3A;null&#x3002;
 
+&#x652F;&#x6301;&#x5C55;&#x793A;&#x524D;&#x7F6E;&#x6807;&#x7B7E;&#x548C;&#x540E;&#x7F6E;&#x6807;&#x7B7E;&#x4E4B;&#x95F4;&#x7684;&#x5185;&#x5BB9;&#x3002;
+</code></pre><h3 id="&#x8C03;&#x7528;&#x65B9;&#x5F0F;&#xFF1A;">&#x8C03;&#x7528;&#x65B9;&#x5F0F;&#xFF1A;</h3>
+<pre><code>&lt;FFFScrollView height={300} 
+                endPadding={10} 
+                backgroundColor={&apos;#ff0088&apos;}&gt;
+    {this.renderAllItem()}
+&lt;/FFFScrollView&gt;
+</code></pre><h3 id="fffscrollview-&#x6E90;&#x7801;&#xFF1A;">FFFScrollView &#x6E90;&#x7801;&#xFF1A;</h3>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import {
+    StyleSheet,
+    View,
+    ScrollView,
+} from &apos;react-native&apos;;
+
+type Props = {};
+export default class FFFScrollView extends Component&lt;Props&gt; {
+    static defaultProps = {
+        height: 100,
+        horizontal: true,
+        showHorizontalScrollIndicator: false,
+        direction: &apos;row&apos;,
+        endPadding: 0,
+        startPadding:0,
+        backgroundColor: null,
+    }
+
+    constructor(props) {
+        super(props);
+
+        this.state = {
+
+        };
+    }
+
+    render() {
+        return (
+            &lt;View style={{height:this.props.height,backgroundColor:this.props.backgroundColor?this.props.backgroundColor:null}}&gt;
+                &lt;ScrollView style={{flexDirection:this.props.direction}}
+                            horizontal={this.props.horizontal}
+                            showHorizontalScrollIndicator={this.props.showHorizontalScrollIndicator}&gt;
+                    {this.props.direction === &apos;row&apos; ? &lt;View style={{width:this.props.startPadding}}/&gt; : &lt;View style={{height:this.props.startPadding}}/&gt;}
+                    {this.props.children}
+                    {this.props.direction === &apos;row&apos; ? &lt;View style={{width:this.props.endPadding}}/&gt; : &lt;View style={{height:this.props.endPadding}}/&gt;}
+                &lt;/ScrollView&gt;
+            &lt;/View&gt;
+        );
+    }
+
+    componentDidMount() {
+
+    }
+}
+
+const styles = StyleSheet.create({
+
+});
+</code></pre>
                                 
                                 </section>
                             
@@ -1581,6 +1650,10 @@
             
                 
                 
+                <a href="1525959922.html" class="navigation navigation-next navigation-unique" aria-label="Next page: RN 试着封装">
+                    <i class="fa fa-angle-right"></i>
+                </a>
+                
             
         
     </div>
@@ -1588,7 +1661,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"介绍","level":"1.1","depth":1,"next":{"title":"iOS","level":"1.2","depth":1,"ref":"","articles":[{"title":"iOS \"This app is not allowed to query for scheme tel\"","level":"1.2.1","depth":2,"path":"1525959913.md","ref":"1525959913.md","articles":[]},{"title":"iOS Model 保存到数据库的半小时简单设计","level":"1.2.2","depth":2,"path":"1525959914.md","ref":"1525959914.md","articles":[]},{"title":"iOS UICollectionViewCell 高度自适应","level":"1.2.3","depth":2,"path":"1525959915.md","ref":"1525959915.md","articles":[]},{"title":"iOS textField 设置 placeholder 颜色、大小","level":"1.2.4","depth":2,"path":"1525959916.md","ref":"1525959916.md","articles":[]},{"title":"iOS 用到的 16进制颜色","level":"1.2.5","depth":2,"path":"1525959917.md","ref":"1525959917.md","articles":[]},{"title":"TabBar + NavC + VC 必须知道的~","level":"1.2.6","depth":2,"path":"1525959918.md","ref":"1525959918.md","articles":[]},{"title":"iOS、Mac 创建文件夹是无视大小写的。","level":"1.2.7","depth":2,"path":"1525959919.md","ref":"1525959919.md","articles":[]},{"title":"navigationItem.leftBarButtonItem iOS 11 大小变了","level":"1.2.8","depth":2,"path":"1525959920.md","ref":"1525959920.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"README.md","mtime":"2018-05-10T16:18:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RN 封装模板，及文档，以 FFFScrollView 为例","level":"1.3.1","depth":2,"next":{"title":"RN 试着封装","level":"1.3.2","depth":2,"path":"1525959922.md","ref":"1525959922.md","articles":[]},"previous":{"title":"React Native","level":"1.3","depth":1,"ref":"","articles":[{"title":"RN 封装模板，及文档，以 FFFScrollView 为例","level":"1.3.1","depth":2,"path":"1525959921.md","ref":"1525959921.md","articles":[]},{"title":"RN 试着封装","level":"1.3.2","depth":2,"path":"1525959922.md","ref":"1525959922.md","articles":[]},{"title":"RN DeviceEventEmitter传值","level":"1.3.3","depth":2,"path":"1525959923.md","ref":"1525959923.md","articles":[]},{"title":"RN 加载 iOS ViewController","level":"1.3.4","depth":2,"path":"1525959924.md","ref":"1525959924.md","articles":[]},{"title":"RN 问题集","level":"1.3.5","depth":2,"path":"1525959925.md","ref":"1525959925.md","articles":[]},{"title":"RN 与 iOS 通信~","level":"1.3.6","depth":2,"path":"1525959926.md","ref":"1525959926.md","articles":[]},{"title":"RN 加入到现有的iOS项目中","level":"1.3.7","depth":2,"path":"1525959927.md","ref":"1525959927.md","articles":[]},{"title":"RN React-Web？","level":"1.3.8","depth":2,"path":"1525959928.md","ref":"1525959928.md","articles":[]},{"title":"RN base64","level":"1.3.9","depth":2,"path":"1525959929.md","ref":"1525959929.md","articles":[]},{"title":"RN No component found for view with name “ARTShape”","level":"1.3.10","depth":2,"path":"1525959930.md","ref":"1525959930.md","articles":[]},{"title":"RN 根据数据来进行组件布局","level":"1.3.11","depth":2,"path":"1525959931.md","ref":"1525959931.md","articles":[]},{"title":"RN 打包 Android项目（for Mac）","level":"1.3.12","depth":2,"path":"1525959932.md","ref":"1525959932.md","articles":[]},{"title":"code-push-server 客户端","level":"1.3.13","depth":2,"path":"1525959933.md","ref":"1525959933.md","articles":[]},{"title":"code-push-server 搭建在 Windows 上","level":"1.3.14","depth":2,"path":"1525959934.md","ref":"1525959934.md","articles":[]},{"title":"RN react-navigation 的复杂使用","level":"1.3.15","depth":2,"path":"1525959935.md","ref":"1525959935.md","articles":[]},{"title":"RN react-navigation 的使用","level":"1.3.16","depth":2,"path":"1525959936.md","ref":"1525959936.md","articles":[]},{"title":"RN RefreshControl 官方文档ES5与 ES6的对比","level":"1.3.17","depth":2,"path":"1525959937.md","ref":"1525959937.md","articles":[]},{"title":"RN 创建项目","level":"1.3.18","depth":2,"path":"1525959938.md","ref":"1525959938.md","articles":[]},{"title":"RN 封装 WebView ?","level":"1.3.19","depth":2,"path":"1525959939.md","ref":"1525959939.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959921.md","mtime":"2018-05-10T15:20:06.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
