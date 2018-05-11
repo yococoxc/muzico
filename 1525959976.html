@@ -1554,7 +1554,244 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="easy-2-oc-&#x53C2;&#x8003;-&#x4E4B;-">Easy 2 OC &#x53C2;&#x8003; &#x4E4B; ...</h1>
+<p>&#x89C6;&#x56FE;&#xFF1A;</p>
+<p><img src="assets/CAF1E1A3-DCD3-4BF2-9199-3BE0484E8701.png" alt="CAF1E1A3-DCD3-4BF2-9199-3BE0484E8701"></p>
+<p>&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>UICollectionReusableView {
+    name = ZSIndexHeaderMenu;
+    onlyCreate = view;
+    bgColor = random;
+    toPath = ZhongShuo/AppSetup/Section/Index;
+    edges = 0;
+
+    horizontalViews {
+        ZSIndexHeaderMenuItem {
+            text = &quot;&#x54C1;&#x724C;&#x5236;&#x9020;&#x5546;&#x76F4;&#x4F9B;&quot;;
+        }
+        ZSIndexHeaderMenuItem {
+            id = label02;
+            text = &quot;30&#x5929;&#x65E0;&#x7406;&#x7531;&#x9000;&#x6362;&quot;;
+        }
+        ZSIndexHeaderMenuItem {
+            text = &quot;&#x670D;&#x52A1;&#x8FD0;&#x8425;&#x5546;&quot;;
+        }
+    }
+}
+</code></pre><pre><code>UIView {
+    name = ZSIndexHeaderMenuItem;
+    onlyCreate = view;
+    bgColor = #feffff;
+    toPath = ZhongShuo/AppSetup/Section/Index;
+    edges = 0;
+
+    UILabel {
+        id = titleLabel;
+        centerY = parent;
+        centerX = parent.centerX.-8;
+        font = 10;
+    }
+
+    UIImageView {
+        id = imageView;
+        width.height = 15;
+        centerY = parent;
+        right = titleLabel.left.-3;
+        bgColor = random;
+    }
+
+    exportProperty {
+        NSString {
+            id = text;
+            from = titleLabel.text;
+        }
+        UIImage {
+            id = image;
+            from = imageView.image;
+        }
+    }
+}
+</code></pre><p>&#x5176;&#x4E2D; horizontalViews &#x6C34;&#x5E73;&#x5E03;&#x5C40;&#xFF0C;exportProperty &#x5916;&#x7F6E;&#x5C5E;&#x6027;&#x662F;&#x672C;&#x6B21;&#x7F16;&#x5199;&#x521B;&#x9020;&#x51FA;&#x6765;&#x7684;&#x3002;</p>
+<p>&#x901A;&#x8FC7; exportProperty&#xFF0C;</p>
+<pre><code>exportProperty {
+        NSString {
+            id = text;
+            from = titleLabel.text;
+        }
+        UIImage {
+            id = image;
+            from = imageView.image;
+        }
+    }
+</code></pre><p>&#x521B;&#x9020;&#x51FA; ZSIndexHeaderMenuItem.h &#x91CC;&#x9762;&#x7684;</p>
+<pre><code>@property (nonatomic, weak) NSString* text;
+
+@property (nonatomic, weak) UIImage* image;
+</code></pre><p>&#x4EE5;&#x53CA; ZSIndexHeaderMenuItem.m &#x91CC;&#x9762;&#x7684;</p>
+<pre><code>#pragma mark - &#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;
+
+- (void) setText: (NSString*) text {
+    self.titleLabel.text = text;
+}
+
+- (NSString*) text {
+    return self.titleLabel.text;
+}
+
+- (void) setImage: (UIImage*) image {
+    self.imageView.image = image;
+}
+
+- (UIImage*) image {
+    return self.imageView.image;
+}
+</code></pre><p>&#x5B9E;&#x9645;&#x8F6C;&#x6362;OC&#x7684;&#x662F;</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+#import &quot;QSKit.h&quot;
+
+
+@protocol ZSIndexHeaderMenuItemDelegate;
+
+@interface ZSIndexHeaderMenuItem : UIView
+
+#pragma mark - &#x5C5E;&#x6027;
+@property (nonatomic, weak) UIView* theLoadView;
+
+@property (nonatomic, weak) UILabel* titleLabel;
+
+@property (nonatomic, weak) UIImageView* imageView;
+
+@property (nonatomic, weak) NSString* text;
+
+@property (nonatomic, weak) UIImage* image;
+
+//&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x7684;&#x534F;&#x8BAE;
+@property (nonatomic, weak) id&lt;ZSIndexHeaderMenuItemDelegate&gt; delegate;
+
+#pragma mark - &#x65B9;&#x6CD5;
+- (void) addToSuper: (id) aSuper;
+
+//&#x91CD;&#x5199;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E0A;&#x9762;&#x65B9;&#x6CD5;&#x7684;&#x5E03;&#x5C40;&#x6837;&#x5F0F;&#xFF0C;&#x8FD4;&#x56DE; YES &#x751F;&#x6548;&#x3002;
+- (BOOL) addToSuperWithSetupLayoutFromSuperView:(UIView*)aSuperView;
+
+@end
+
+@protocol ZSIndexHeaderMenuItemDelegate &lt;NSObject&gt;
+
+//&#x5199;&#x4E0A;&#x9700;&#x8981;&#x7684;&#x534F;&#x8BAE;&#x65B9;&#x6CD5;&#xFF1A;
+
+@end
+</code></pre><pre><code>#import &quot;ZSIndexHeaderMenuItem.h&quot;
+
+#import &quot;Masonry.h&quot;
+
+@interface ZSIndexHeaderMenuItem ()
+
+@end
+
+@implementation ZSIndexHeaderMenuItem
+
+#pragma mark - &#x5185;&#x7F6E;&#x7684;&#x65B9;&#x6CD5;
+- (void) addToSuper:(id)aSuper {
+    if ([aSuper isKindOfClass:[UIViewController class]]) {
+        UIViewController* tempController = aSuper;
+        [self addToSuper:[tempController view]];
+        return;
+    }
+    if ([aSuper isKindOfClass:[UIView class]]) {
+        UIView* tempView = aSuper;
+        [tempView addSubview:self];
+
+        if ([self addToSuperWithSetupLayoutFromSuperView:tempView] == NO) {
+            [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(0);
+            }];
+        }
+        return;
+    }
+}
+- (BOOL) addToSuperWithSetupLayoutFromSuperView:(UIView*)aSuperView {
+
+    return NO;
+}
+#pragma mark - &#x521D;&#x59CB;&#x7684;&#x65B9;&#x6CD5;
+- (instancetype) init {
+    if (self = [super init]) {
+        [self setupUI];
+    }
+    return self;
+}
+- (instancetype) initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
+}
+#pragma mark - &#x914D;&#x7F6E;&#x754C;&#x9762;&#x7684;&#x65B9;&#x6CD5;
+- (void) setupUI {
+    if (self.theLoadView) {
+        return;
+    }
+
+    #pragma mark - UI - init - theLoadView
+    UIView* theLoadView = [UIView new];
+    theLoadView.backgroundColor = [QSKit color:@&quot;#feffff&quot;];
+    [self addSubview:theLoadView];
+    [theLoadView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.edges.mas_equalTo(0);
+    }];
+    self.theLoadView = theLoadView;
+
+
+    #pragma mark - UI - init - titleLabel
+    UILabel* titleLabel = [UILabel new];
+    titleLabel.font = [UIFont systemFontOfSize:10];
+    [theLoadView addSubview:titleLabel];
+    [titleLabel mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.centerY.mas_equalTo(theLoadView);
+        make.centerX.mas_equalTo(theLoadView.mas_centerX).offset(-8);
+    }];
+    self.titleLabel = titleLabel;
+
+
+    #pragma mark - UI - init - imageView
+    UIImageView* imageView = [UIImageView new];
+    imageView.backgroundColor = [QSKit color:@&quot;random&quot;];
+    [theLoadView addSubview:imageView];
+    [imageView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.right.mas_equalTo(titleLabel.mas_left).offset(-3);
+        make.width.height.mas_equalTo(15);
+        make.centerY.mas_equalTo(theLoadView);
+    }];
+    self.imageView = imageView;
+
+
+}
+
+#pragma mark - &#x81EA;&#x5B9A;&#x4E49;&#x5C5E;&#x6027;
+
+- (void) setText: (NSString*) text {
+    self.titleLabel.text = text;
+}
+
+- (NSString*) text {
+    return self.titleLabel.text;
+}
+
+- (void) setImage: (UIImage*) image {
+    self.imageView.image = image;
+}
+
+- (UIImage*) image {
+    return self.imageView.image;
+}
+
+@end
+</code></pre>
                                 
                                 </section>
                             
@@ -1593,7 +1830,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 参考 之 ...","level":"1.12.1","depth":2,"next":{"title":"Easy 2 OC 参考 之 UICollectionReusableView","level":"1.12.2","depth":2,"path":"1525959977.md","ref":"1525959977.md","articles":[]},"previous":{"title":"简单语法转 objC 文件","level":"1.12","depth":1,"ref":"","articles":[{"title":"Easy 2 OC 参考 之 ...","level":"1.12.1","depth":2,"path":"1525959976.md","ref":"1525959976.md","articles":[]},{"title":"Easy 2 OC 参考 之 UICollectionReusableView","level":"1.12.2","depth":2,"path":"1525959977.md","ref":"1525959977.md","articles":[]},{"title":"Easy 2 OC 手册","level":"1.12.3","depth":2,"path":"1525959978.md","ref":"1525959978.md","articles":[]},{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"path":"1525959979.md","ref":"1525959979.md","articles":[]},{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"path":"1525959981.md","ref":"1525959981.md","articles":[]}]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959976.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 参考 之 ...","level":"1.12.1","depth":2,"next":{"title":"Easy 2 OC 参考 之 UICollectionReusableView","level":"1.12.2","depth":2,"path":"1525959977.md","ref":"1525959977.md","articles":[]},"previous":{"title":"简单语法转 objC 文件","level":"1.12","depth":1,"ref":"","articles":[{"title":"Easy 2 OC 参考 之 ...","level":"1.12.1","depth":2,"path":"1525959976.md","ref":"1525959976.md","articles":[]},{"title":"Easy 2 OC 参考 之 UICollectionReusableView","level":"1.12.2","depth":2,"path":"1525959977.md","ref":"1525959977.md","articles":[]},{"title":"Easy 2 OC 手册","level":"1.12.3","depth":2,"path":"1525959978.md","ref":"1525959978.md","articles":[]},{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"path":"1525959979.md","ref":"1525959979.md","articles":[]},{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"path":"1525959981.md","ref":"1525959981.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959976.md","mtime":"2018-05-11T00:51:12.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1552,7 +1552,314 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="&#x4E00;&#x4E2A;-menu">&#x4E00;&#x4E2A; Menu</h1>
+<p>&#x6548;&#x679C;&#xFF1A;
+<img src="assets/juhao333.gif" alt="juhao333"></p>
+<p>MenuCell.h</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+@protocol MenuCell &lt;NSObject&gt;
+
+- (void) selectIt;
+- (void) deselectIt;
+
+@end
+
+@interface MenuCell : UIView&lt;MenuCell&gt;
+
+@end
+</code></pre><p>MenuCell.m</p>
+<pre><code>#import &quot;MenuCell.h&quot;
+
+@implementation MenuCell
+
+- (void) selectIt {
+
+}
+- (void) deselectIt {
+
+}
+
+@end
+</code></pre><p>MenuC.h</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+#import &quot;MenuCell.h&quot;
+@protocol MenuCDataSource;
+@protocol MenuCDelegate;
+
+@interface MenuC : UIView
+
+
+@property(nonatomic,assign) NSInteger currentIndex;
+@property(nonatomic,assign,readonly) NSInteger priorIndex;
+@property(nonatomic,assign) BOOL pressed;
+
+@property(nonatomic,weak) id&lt;MenuCDataSource&gt; dataSource;
+@property(nonatomic,weak) id&lt;MenuCDelegate&gt; delegate;
+
+
+- (void) reloadData;
+
+#pragma mark - &#x6839;&#x636E; index &#x83B7;&#x53D6; cell
+- (UIView*) cellWithIndex:(NSInteger)index;
+
+@end
+
+@protocol MenuCDataSource &lt;NSObject&gt;
+@required
+//&#x5199;&#x4E0A;&#x9700;&#x8981;&#x7684;&#x534F;&#x8BAE;&#x65B9;&#x6CD5;&#xFF1A;
+- (NSUInteger) numberOfItemsInMenuC:(MenuC*)menu;
+- (UIView*) menuC:(MenuC*)menu cellAtIndex:(NSUInteger)index;
+//- (UIView &lt;MenuCell&gt; *) menuC:(MenuC*)menu cellAtIndex:(NSUInteger)index;
+
+@end
+
+@protocol MenuCDelegate &lt;NSObject&gt;
+
+//&#x5199;&#x4E0A;&#x9700;&#x8981;&#x7684;&#x534F;&#x8BAE;&#x65B9;&#x6CD5;&#xFF1A;
+- (void) menuC:(MenuC*)menu didSelectCellAtIndex:(NSUInteger)index;
+
+@end
+</code></pre><p>MenuC.m</p>
+<pre><code>#import &quot;MenuC.h&quot;
+
+#import &quot;Masonry.h&quot;
+
+@interface MenuC ()
+
+@property(nonatomic,weak) UIView* theLoadView;
+
+@property(nonatomic,assign) BOOL reloadDataSelected;
+
+@end
+
+@implementation MenuC
+
+- (instancetype) initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
+}
+- (instancetype) init {
+    if (self = [super init]) {
+        [self setupUI];
+    }
+    return self;
+}
+
+- (void) setupUI {
+    if (self.theLoadView) {
+        return;
+    }
+    UIView* theLoadView = [UIView new];
+    theLoadView.backgroundColor = [UIColor clearColor];
+    [self addSubview:theLoadView];
+    [theLoadView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.edges.mas_equalTo(0);
+    }];
+    self.theLoadView = theLoadView;
+
+    _currentIndex = -1;
+    _priorIndex = -1;
+    _pressed = NO;
+}
+
+- (void) didMoveToSuperview {
+    [super didMoveToSuperview];
+
+    [self reloadData];
+}
+
+- (void) setCurrentIndex:(NSInteger)currentIndex {
+    _currentIndex = currentIndex;
+}
+
+#pragma mark - reloadData &#x91CD;&#x65B0;&#x52A0;&#x8F7D;&#x6570;&#x636E;
+- (void) reloadData {
+    //&#x6E05;&#x9664;&#x9648;&#x65E7;&#x7684;&#x89C6;&#x56FE;
+    if ([_theLoadView isKindOfClass:[UIView class]] == NO) {
+        return;
+    }
+    for (UIView* subview in _theLoadView.subviews) {
+        [subview removeFromSuperview];
+    }
+
+    //&#x5C06;&#x8BB0;&#x5F55;&#x524D;&#x4E00;&#x4E2A;&#x89E6;&#x53D1;&#x503C;&#x91CD;&#x7F6E;&#x4E3A;-1
+    _priorIndex = -1;
+
+    //&#x7EDF;&#x8BA1;Menu cell&#x7684;&#x4E2A;&#x6570;
+    NSUInteger count = 0;
+    if (self.dataSource &amp;&amp; [self.dataSource respondsToSelector:@selector(numberOfItemsInMenuC:)]) {
+        count = [self.dataSource numberOfItemsInMenuC:self];
+    }
+    if (count == 0) {
+        return;
+    }
+
+    /*************************************************************************************************
+     &#x5E03;&#x5C40; &#x5F00;&#x59CB;
+     *****************************************************************************/
+    UIView* priorView = nil;
+    for (NSUInteger index = 0; index &lt; count; index++) {
+        UIControl* menuControl = [UIControl new];
+        menuControl.backgroundColor = [UIColor clearColor];
+        menuControl.tag = index;
+        [menuControl addTarget:self action:@selector(pressedControlwithDoSomething:) forControlEvents:UIControlEventTouchUpInside];
+        [_theLoadView addSubview:menuControl];
+
+        /*********************************************************
+         &#x52A0;&#x8F7D;content start
+         ********************************************/
+        if (self.dataSource &amp;&amp; [self.dataSource respondsToSelector:@selector(menuC:cellAtIndex:)]) {
+            UIView* contentView = [self.dataSource menuC:self cellAtIndex:index];
+            if ([contentView isKindOfClass:[UIView class]]) {
+                contentView.userInteractionEnabled = NO;
+                [menuControl addSubview:contentView];
+                [contentView mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.mas_equalTo(0);
+                }];
+            }
+        }
+        /********************************************
+         &#x52A0;&#x8F7D;content end
+         *********************************************************/
+
+        if (index == 0) {
+            //&#x7B2C;&#x4E00;&#x4E2A;
+            if (count == 1) {
+                //&#x53EA;&#x6709;&#x4E00;&#x4E2A;
+                [menuControl mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.edges.mas_equalTo(0);
+                }];
+            } else {
+                //&#x4E0D;&#x6B62;&#x6709;&#x4E00;&#x4E2A;
+                [menuControl mas_makeConstraints:^(MASConstraintMaker *make) {
+                    make.left.mas_equalTo(0);
+                    make.top.mas_equalTo(0);
+                    make.bottom.mas_equalTo(0);
+                }];
+            }
+        } else if (index == count - 1) {
+            //&#x6700;&#x540E;&#x4E00;&#x4E2A;
+            [menuControl mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.right.mas_equalTo(0);
+                make.top.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
+                make.left.mas_equalTo(priorView.mas_right);
+                make.width.mas_equalTo(priorView.mas_width);
+            }];
+        } else {
+            //&#x4E2D;&#x95F4;&#x7684;
+            [menuControl mas_makeConstraints:^(MASConstraintMaker *make) {
+                make.top.mas_equalTo(0);
+                make.bottom.mas_equalTo(0);
+                make.left.mas_equalTo(priorView.mas_right);
+                make.width.mas_equalTo(priorView.mas_width);
+            }];
+        }
+        priorView = menuControl;
+    }
+    /*****************************************************************************
+     &#x5E03;&#x5C40; &#x7ED3;&#x675F;
+     *************************************************************************************************/
+}
+
+#pragma mark - menu &#x70B9;&#x51FB;&#x4E8B;&#x4EF6;
+- (void) pressedControlwithDoSomething:(UIControl*)sender {
+    if ([_theLoadView isKindOfClass:[UIView class]] == NO) {
+        return;
+    }
+    for (UIControl* menuControl in _theLoadView.subviews) {
+        if ([menuControl isKindOfClass:[UIControl class]]) {
+            MenuCell* contentView = [[menuControl subviews] lastObject];
+            if ([contentView isKindOfClass:[UIView class]]) {
+                if ([contentView respondsToSelector:@selector(deselectIt)]) {
+                    [contentView deselectIt];
+                }
+            }
+        }
+    }
+
+    NSUInteger priorIndex = _currentIndex;
+    NSUInteger currentIndex = sender.tag;
+
+
+    if (_pressed == NO) {
+        //&#x8BF4;&#x660E;&#x524D;&#x9762;&#x6CA1;&#x6709;&#x70B9;&#x51FB;&#x8FC7;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6267;&#x884C;
+        //&#x6709;&#x70B9;&#x51FB;&#x7684;
+        _pressed = YES;
+    } else {
+        //&#x8BF4;&#x660E;&#x524D;&#x9762;&#x5DF2;&#x7ECF;&#x70B9;&#x51FB;&#x8FC7;&#xFF0C;&#x8981;&#x5224;&#x65AD;&#x5F53;&#x524D;&#x548C;&#x4E4B;&#x524D;&#x7684;&#x70B9;&#x51FB;&#x662F;&#x5426;&#x4E00;&#x81F4;&#x3002;
+        if (priorIndex == currentIndex) {
+            if (_pressed == YES) {
+                //&#x5DF2;&#x7ECF;&#x70B9;&#x51FB;&#x8FC7;&#x7684;&#xFF0C;&#x5C31;&#x53D6;&#x6D88;&#x70B9;&#x51FB;
+                _pressed = NO;
+            } else {
+                //&#x70B9;&#x51FB;&#x5DF2;&#x7ECF;&#x53D6;&#x6D88;&#x4E86;&#xFF0C;&#x5C31;&#x91CD;&#x65B0;&#x70B9;&#x51FB;
+                //&#x6709;&#x70B9;&#x51FB;&#x7684;
+                _pressed = YES;
+            }
+        } else {
+
+            //&#x8BF4;&#x660E;&#x524D;&#x9762;&#x6CA1;&#x6709;&#x70B9;&#x51FB;&#x8FC7;&#xFF0C;&#x53EF;&#x4EE5;&#x76F4;&#x63A5;&#x6267;&#x884C;
+            //&#x6709;&#x70B9;&#x51FB;&#x7684;
+            _pressed = YES;
+        }
+    }
+
+    if (_pressed == YES) {
+        UIControl* menuControl = [self cellControlWithIndex:currentIndex];
+        if ([menuControl isKindOfClass:[UIControl class]]) {
+            MenuCell* contentView = [[menuControl subviews] lastObject];
+            if ([contentView isKindOfClass:[UIView class]]) {
+                if ([contentView respondsToSelector:@selector(selectIt)]) {
+                    [contentView selectIt];
+                }
+            }
+        }
+    }
+
+    _priorIndex = priorIndex;
+    _currentIndex = currentIndex;
+
+    if (self.delegate &amp;&amp; [self.delegate respondsToSelector:@selector(menuC:didSelectCellAtIndex:)]) {
+        [self.delegate menuC:self didSelectCellAtIndex:_currentIndex];
+    }
+}
+
+#pragma mark - &#x6839;&#x636E; index &#x83B7;&#x53D6; cell
+- (UIView*) cellWithIndex:(NSInteger)index {
+    UIControl* control = [self cellControlWithIndex:index];
+    if ([control isKindOfClass:[UIControl class]]) {
+        NSArray* subviews = [control subviews];
+        if ([subviews isKindOfClass:[NSArray class]] &amp;&amp;
+            [subviews count] &gt; 0) {
+            return [subviews lastObject];
+        }
+    }
+    return nil;
+}
+#pragma mark - &#x6839;&#x636E; index &#x83B7;&#x53D6; cell control
+- (UIControl*) cellControlWithIndex:(NSInteger)index {
+    if (index &lt; 0) {
+        return nil;
+    }
+    UIControl* targetView = nil;
+    for (UIControl* subiew in self.theLoadView.subviews) {
+        if ([subiew isKindOfClass:[UIControl class]]) {
+            if (subiew.tag == index) {
+                targetView = subiew;
+                break;
+            }
+        }
+    }
+    return targetView;
+}
+
+@end
+</code></pre>
                                 
                                 </section>
                             
@@ -1587,7 +1894,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"一个 Menu","level":"1.16.1","depth":2,"next":{"title":"无题","level":"1.17","depth":1,"ref":"","articles":[{"title":"一个很冷的笑话","level":"1.17.1","depth":2,"path":"1525959989.md","ref":"1525959989.md","articles":[]}]},"previous":{"title":"iOS 组件","level":"1.16","depth":1,"ref":"","articles":[{"title":"一个 Menu","level":"1.16.1","depth":2,"path":"1525959988.md","ref":"1525959988.md","articles":[]}]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959988.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"一个 Menu","level":"1.16.1","depth":2,"next":{"title":"无题","level":"1.17","depth":1,"ref":"","articles":[{"title":"一个很冷的笑话","level":"1.17.1","depth":2,"path":"1525959989.md","ref":"1525959989.md","articles":[]}]},"previous":{"title":"iOS 组件","level":"1.16","depth":1,"ref":"","articles":[{"title":"一个 Menu","level":"1.16.1","depth":2,"path":"1525959988.md","ref":"1525959988.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959988.md","mtime":"2018-05-10T23:23:48.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

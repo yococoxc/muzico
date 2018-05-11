@@ -1556,7 +1556,25 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="swift4-uiviewcontroller-&#x76F8;&#x5173;">Swift4 UIViewController &#x76F8;&#x5173;</h1>
+<p>OC&#x98CE;&#x683C;:</p>
+<pre><code>ViewControllerA* vc = [ViewControllerA new];
+[self presentViewController:vc animated:YES completion:^{
+
+}];
+</code></pre><pre><code>[self dismissViewControllerAnimated:YES completion:^{
+
+}];
+</code></pre><p><br>
+swift:</p>
+<pre><code>var vc = ViewControllerA();
+self.present(vc, animated: true) {
+
+}
+</code></pre><pre><code>self.dismiss(animated: true) {
+
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -1599,7 +1617,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Swift4 UIViewController 相关","level":"1.7.6","depth":2,"next":{"title":"Swift4 Button","level":"1.7.7","depth":2,"path":"1525959957.md","ref":"1525959957.md","articles":[]},"previous":{"title":"Swift4 UIView 自定义","level":"1.7.5","depth":2,"path":"1525959955.md","ref":"1525959955.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959956.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Swift4 UIViewController 相关","level":"1.7.6","depth":2,"next":{"title":"Swift4 Button","level":"1.7.7","depth":2,"path":"1525959957.md","ref":"1525959957.md","articles":[]},"previous":{"title":"Swift4 UIView 自定义","level":"1.7.5","depth":2,"path":"1525959955.md","ref":"1525959955.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959956.md","mtime":"2018-05-10T23:21:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

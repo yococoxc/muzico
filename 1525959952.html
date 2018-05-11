@@ -1556,7 +1556,45 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="swift-&#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x6392;&#x5E8F;-&#x95ED;&#x5305;&#xFF0C;&#x591A;&#x79CD;&#x5199;&#x6CD5;">Swift &#x4ECE;&#x5927;&#x5230;&#x5C0F;&#x6392;&#x5E8F; (&#x95ED;&#x5305;&#xFF0C;&#x591A;&#x79CD;&#x5199;&#x6CD5;)</h1>
+<pre><code>let tmp = [8,5,6,4,9,7,1]
+</code></pre><h3 id="1">1.</h3>
+<pre><code>func backwards(val:Int,val2:Int) -&gt; Bool {
+    return val &gt; val2
+}
+let reversed = tmp.sorted(by: backwards)
+</code></pre><h3 id="2&#x53C2;&#x6570;&#x540D;&#x79F0;&#x7F29;&#x5199;">2.&#x53C2;&#x6570;&#x540D;&#x79F0;&#x7F29;&#x5199;</h3>
+<pre><code>let reversed = tmp.sorted(by: {$0 &gt; $1})
+</code></pre><h3 id="3">3.</h3>
+<pre><code>let reversed = tmp.sorted(by: {(val, val2) -&gt; Bool in
+    return val &gt; val2
+})
+</code></pre><h3 id="4">4.</h3>
+<pre><code>let backwards = {(val:Int, val2:Int) -&gt; Bool in
+    return val &gt; val2;
+}
+let reversed = tmp.sorted(by: backwards)
+</code></pre><h3 id="5&#x8FD0;&#x7B97;&#x7B26;&#x51FD;&#x6570;">5.&#x8FD0;&#x7B97;&#x7B26;&#x51FD;&#x6570;</h3>
+<pre><code>let reversed = tmp.sorted(by: &gt;)
+</code></pre><h3 id="6&#x5C3E;&#x968F;&#x95ED;&#x5305;&#xFF08;2&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x5199;&#x6CD5;&#xFF09;">6.&#x5C3E;&#x968F;&#x95ED;&#x5305;&#xFF08;2&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x5199;&#x6CD5;&#xFF09;</h3>
+<pre><code>let reversed = tmp.sorted() {$0 &gt; $1}
+</code></pre><h3 id="7&#x5982;&#x679C;&#x51FD;&#x6570;&#x53EA;&#x9700;&#x8981;&#x95ED;&#x5305;&#x8868;&#x8FBE;&#x5F0F;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5F53;&#x60A8;&#x4F7F;&#x7528;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x65F6;&#xFF0C;&#x60A8;&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x628A;&#x7701;&#x7565;&#x6389;">7.&#x5982;&#x679C;&#x51FD;&#x6570;&#x53EA;&#x9700;&#x8981;&#x95ED;&#x5305;&#x8868;&#x8FBE;&#x5F0F;&#x4E00;&#x4E2A;&#x53C2;&#x6570;&#xFF0C;&#x5F53;&#x60A8;&#x4F7F;&#x7528;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x65F6;&#xFF0C;&#x60A8;&#x751A;&#x81F3;&#x53EF;&#x4EE5;&#x628A;()&#x7701;&#x7565;&#x6389;</h3>
+<pre><code>let reversed = tmp.sorted {$0 &gt; $1}
+</code></pre><h3 id="8-3&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x5199;&#x6CD5;">8. 3&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x5199;&#x6CD5;</h3>
+<pre><code>let reversed = tmp.sorted() {(val, val2) -&gt; Bool in
+    return val &gt; val2
+}
+</code></pre><h3 id="9-3&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x7684;&#x7F29;&#x7565;&#x5199;&#x6CD5;">9. 3&#x7684;&#x5C3E;&#x968F;&#x95ED;&#x5305;&#x7684;&#x7F29;&#x7565;&#x5199;&#x6CD5;</h3>
+<pre><code>let reversed = tmp.sorted {(val, val2) -&gt; Bool in
+    return val &gt; val2
+}
+</code></pre><p>&#x7ED3;&#x679C;&#xFF1A;</p>
+<pre><code>print(reversed)
+</code></pre><p>[9, 8, 7, 6, 5, 4, 1]</p>
+<p><br>
+PS:
+1 &#x548C; 4 &#x7684;&#x5199;&#x6CD5;&#x4E0D;&#x9002;&#x7528;&#x4E8E;&#x5C3E;&#x968F;&#x95ED;&#x5305;</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1637,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Swift 从大到小排序 (闭包，多种写法)","level":"1.7.2","depth":2,"next":{"title":"Swift4 调用 OC 写的组件 - delegate篇","level":"1.7.3","depth":2,"path":"1525959953.md","ref":"1525959953.md","articles":[]},"previous":{"title":"Swift 单例","level":"1.7.1","depth":2,"path":"1525959951.md","ref":"1525959951.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959952.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Swift 从大到小排序 (闭包，多种写法)","level":"1.7.2","depth":2,"next":{"title":"Swift4 调用 OC 写的组件 - delegate篇","level":"1.7.3","depth":2,"path":"1525959953.md","ref":"1525959953.md","articles":[]},"previous":{"title":"Swift 单例","level":"1.7.1","depth":2,"path":"1525959951.md","ref":"1525959951.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959952.md","mtime":"2018-05-10T23:20:30.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

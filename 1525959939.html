@@ -1554,7 +1554,35 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="rn-&#x5C01;&#x88C5;-webview-">RN &#x5C01;&#x88C5; WebView ?</h1>
+<p>&#x7B80;&#x5355;&#x6E90;&#x7801;&#xFF1A;</p>
+<pre><code>import React, { Component } from &apos;react&apos;;
+import {
+    Platform,
+    StyleSheet,
+    Text,
+    View,
+    WebView
+} from &apos;react-native&apos;;
+
+export default class TWebView extends Component&lt;Props&gt; {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            url : this.props.url
+        };
+    }
+
+    render() {
+        return (
+            &lt;WebView source={{uri: this.state.url}} style={{marginTop:-20}}/&gt;
+        );
+    }
+}
+
+module.exports = TWebView;
+</code></pre>
                                 
                                 </section>
                             
@@ -1593,7 +1621,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"RN 封装 WebView ?","level":"1.3.19","depth":2,"next":{"title":"Unity","level":"1.4","depth":1,"ref":"","articles":[{"title":"Unity 加载场景","level":"1.4.1","depth":2,"path":"1525959940.md","ref":"1525959940.md","articles":[]},{"title":"Unity Shader - 图形管道(The Graphics Pipeline)","level":"1.4.2","depth":2,"path":"1525959941.md","ref":"1525959941.md","articles":[]},{"title":"Unity Shader - 第一个 Shader","level":"1.4.3","depth":2,"path":"1525959942.md","ref":"1525959942.md","articles":[]},{"title":"Unity 关于脚本的内容","level":"1.4.4","depth":2,"path":"1525959943.md","ref":"1525959943.md","articles":[]},{"title":"Unity 创建对象","level":"1.4.5","depth":2,"path":"1525959944.md","ref":"1525959944.md","articles":[]},{"title":"Unity GUI 基础","level":"1.4.6","depth":2,"path":"1525959945.md","ref":"1525959945.md","articles":[]},{"title":"Unity transform","level":"1.4.7","depth":2,"path":"1525959946.md","ref":"1525959946.md","articles":[]},{"title":"Unity Vector3 三维向量","level":"1.4.8","depth":2,"path":"1525959947.md","ref":"1525959947.md","articles":[]}]},"previous":{"title":"RN 创建项目","level":"1.3.18","depth":2,"path":"1525959938.md","ref":"1525959938.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959939.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"RN 封装 WebView ?","level":"1.3.19","depth":2,"next":{"title":"Unity","level":"1.4","depth":1,"ref":"","articles":[{"title":"Unity 加载场景","level":"1.4.1","depth":2,"path":"1525959940.md","ref":"1525959940.md","articles":[]},{"title":"Unity Shader - 图形管道(The Graphics Pipeline)","level":"1.4.2","depth":2,"path":"1525959941.md","ref":"1525959941.md","articles":[]},{"title":"Unity Shader - 第一个 Shader","level":"1.4.3","depth":2,"path":"1525959942.md","ref":"1525959942.md","articles":[]},{"title":"Unity 关于脚本的内容","level":"1.4.4","depth":2,"path":"1525959943.md","ref":"1525959943.md","articles":[]},{"title":"Unity 创建对象","level":"1.4.5","depth":2,"path":"1525959944.md","ref":"1525959944.md","articles":[]},{"title":"Unity GUI 基础","level":"1.4.6","depth":2,"path":"1525959945.md","ref":"1525959945.md","articles":[]},{"title":"Unity transform","level":"1.4.7","depth":2,"path":"1525959946.md","ref":"1525959946.md","articles":[]},{"title":"Unity Vector3 三维向量","level":"1.4.8","depth":2,"path":"1525959947.md","ref":"1525959947.md","articles":[]}]},"previous":{"title":"RN 创建项目","level":"1.3.18","depth":2,"path":"1525959938.md","ref":"1525959938.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959939.md","mtime":"2018-05-10T23:05:23.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

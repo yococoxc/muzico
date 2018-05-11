@@ -1556,7 +1556,88 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="unity-&#x521B;&#x5EFA;&#x5BF9;&#x8C61;">Unity &#x521B;&#x5EFA;&#x5BF9;&#x8C61;</h1>
+<h3 id="createprimitive-&#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;">CreatePrimitive &#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;</h3>
+<pre><code>PrimitiveType {
+    Sphere,//&#x7403;&#x4F53;
+    Capsule,//&#x80F6;&#x56CA;&#x4F53;
+    Cylinder,//&#x5706;&#x67F1;&#x4F53;
+    Cube,//&#x65B9;&#x5757;
+    Plane,//&#x5E73;&#x9762;
+    Quad,//&#x56DB;&#x8FB9;&#x5F62;
+}
+</code></pre><p>C#&#xFF1A;</p>
+<pre><code>void OnGUI () {
+
+        if (GUILayout.Button(&quot;&#x521B;&#x5EFA;&#x7ACB;&#x65B9;&#x4F53;&quot;,GUILayout.Height(50))) {
+            var obj = GameObject.CreatePrimitive (PrimitiveType.Cube);
+            obj.AddComponent&lt;Rigidbody&gt; ();
+            obj.name = &quot;MyCube&quot;;
+            obj.transform.position = new Vector3 (0, 10, 0);
+
+            Renderer renderer = obj.GetComponent&lt;Renderer&gt; ();
+            renderer.material.color = Color.red;
+        }
+        if (GUILayout.Button (&quot;&#x521B;&#x5EFA;&#x7403;&#x4F53;&quot;, GUILayout.Height (50))) {
+            var obj = GameObject.CreatePrimitive (PrimitiveType.Sphere);
+            obj.AddComponent&lt;Rigidbody&gt; ();
+            obj.name = &quot;MySphere&quot;;
+            obj.transform.position = new Vector3 (0, 10, 0);
+
+            Renderer renderer = obj.GetComponent&lt;Renderer&gt; ();
+            renderer.material.color = Color.green;
+        }
+    }
+</code></pre><h3 id="instantiate-&#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;-&#xFF08;&#x9700;&#x8981;&#x5F15;&#x5165;-prefab-&#xFF09;">Instantiate &#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61; &#xFF08;&#x9700;&#x8981;&#x5F15;&#x5165; prefab &#xFF09;</h3>
+<p>&#x901A;&#x8FC7; prefab &#x9884;&#x5236;&#x4F53; &#x6765;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;&#x3002;
+C# &#xFF1A;</p>
+<pre><code>public Rigidbody projectile;
+
+void Update() {
+    if (Input.GetButtonDown(&quot;Fire1&quot;)) {
+        Rigidbody clone;
+        clone = Instantiate(projectile, transform.position, transform.rotation);
+        clone.velocity = transform.TransformDirection(Vector3.forward * 10);
+    }
+}
+</code></pre><p>PS&#xFF1A;&#x70B9;&#x51FB;&#x5DE6;&#x952E;&#xFF0C;&#x5411; Z&#x8F74; &#x53D1;&#x5C04;&#x9884;&#x5236;&#x4F53;&#x3002;</p>
+<h3 id="instantiate-&#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61;-&#xFF08;&#x65E0;&#x9700;&#x5F15;&#x5165;-prefab-&#xFF09;">Instantiate &#x65B9;&#x5F0F;&#x521B;&#x5EFA;&#x5BF9;&#x8C61; &#xFF08;&#x65E0;&#x9700;&#x5F15;&#x5165; prefab &#xFF09;</h3>
+<p>&#x9996;&#x5148;&#xFF0C;&#x5728; Assets &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; Resources &#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x7136;&#x540E;&#x5C06; prefab &#x9884;&#x5236;&#x4F53; &#x653E;&#x5230;&#x8BE5;&#x76EE;&#x5F55;&#x4E0B;&#x5C31;&#x53EF;&#x4EE5;&#x4F7F;&#x7528; Resources.Load() &#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#x3002;</p>
+<p>&#x7B80;&#x5355;&#x7684;&#x6765;&#x8BF4;&#x5C31;&#x662F;&#xFF1A;
+C#&#xFF1A;</p>
+<pre><code>void Update() {
+    if (Input.GetButtonDown(&quot;Fire1&quot;)) {
+        GameObject pref = Resources.Load (&quot;3Sphere&quot;) as GameObject;
+        Instantiate (pref);
+    }
+}
+</code></pre><p>&#x5957;&#x7528;&#x4E0A;&#x9762;&#x7684;&#x6548;&#x679C;&#x5C31;&#x662F;&#xFF1A;
+C#&#xFF1A;</p>
+<pre><code>void Update() {
+    if (Input.GetButtonDown(&quot;Fire1&quot;)) {
+        GameObject pref = Resources.Load (&quot;3Sphere&quot;) as GameObject;
+
+        GameObject clone;
+        clone = Instantiate(pref, transform.position, transform.rotation);
+
+        Rigidbody rigidbody = clone.GetComponent&lt;Rigidbody&gt; ();
+        rigidbody.velocity = transform.TransformDirection(Vector3.forward * 10);
+    }
+}
+</code></pre><p>PS&#xFF1A;3Sphere &#x8FD9;&#x4E2A;&#x9884;&#x5236;&#x4F53; &#x6709; Rigidbody &#x8FD9;&#x4E2A;&#x7EC4;&#x4EF6;&#x7684;&#x3002;</p>
+<p>&#x5173;&#x4E8E;&#x8DEF;&#x5F84;&#x65B9;&#x5F0F;&#x52A0;&#x8F7D;&#xFF0C;&#x8FD8;&#x6709;&#x4E00;&#x79CD;&#x65B9;&#x5F0F;:
+&#x9996;&#x5148;&#x5F15;&#x5165;&#x6A21;&#x5757;:</p>
+<pre><code>using UnityEditor;
+</code></pre><p>&#x7136;&#x540E;&#x4EE3;&#x7801;&#xFF1A;
+C#&#xFF1A;</p>
+<pre><code>void Update() {
+    if (Input.GetButtonDown(&quot;Fire1&quot;)) {
+        GameObject pref = AssetDatabase.LoadAssetAtPath(&quot;Assets/Resources/3Sphere.prefab&quot;, typeof(GameObject)) as GameObject;
+
+        //&#x5269;&#x4F59;&#x7684;&#x540C;&#x4E0A;&#x3002;&#x3002;&#x3002;&#x3002;&#x3002;
+    }
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -1599,7 +1680,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Unity 创建对象","level":"1.4.5","depth":2,"next":{"title":"Unity GUI 基础","level":"1.4.6","depth":2,"path":"1525959945.md","ref":"1525959945.md","articles":[]},"previous":{"title":"Unity 关于脚本的内容","level":"1.4.4","depth":2,"path":"1525959943.md","ref":"1525959943.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959944.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Unity 创建对象","level":"1.4.5","depth":2,"next":{"title":"Unity GUI 基础","level":"1.4.6","depth":2,"path":"1525959945.md","ref":"1525959945.md","articles":[]},"previous":{"title":"Unity 关于脚本的内容","level":"1.4.4","depth":2,"path":"1525959943.md","ref":"1525959943.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959944.md","mtime":"2018-05-11T00:38:04.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1556,7 +1556,107 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="easy-2-oc-&#x66F4;&#x591A;-more">Easy 2 OC &#x66F4;&#x591A; More</h1>
+<p>&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>UIView {
+    name = More;
+    edges = 0;
+    bgColor = #eeeeee;
+
+    UIView {
+        id = headView;
+        top.left.right = 0;
+        x-height = 88;
+        height = 64;
+
+        UIView {
+            id = navView;
+            left.right.bottom = 0;
+            height = 44;
+
+            UILabel {
+                center = parent;
+                text = &quot;&#x66F4;&#x591A;&quot;;
+                font = 20;
+            }
+        }
+    }
+
+    UIView {
+        id = contentView;
+        bottom.left.right = 0;
+        top = headView.bottom;
+
+        UICollectionView {
+            id = collectionView;
+            edges = 0;
+            cellSize = parent,60;
+            cells = AAA,BBB,CCC,DDD,EEE,FFF;
+        }
+    }
+}
+</code></pre><p>&#x6548;&#x679C;&#xFF1A;</p>
+<p><img src="assets/1A893DAE-F06F-4981-91C7-4CC66EA6C879.png" alt="1A893DAE-F06F-4981-91C7-4CC66EA6"></p>
+<p>&#x5934;&#x90E8;&#x7684;&#x5185;&#x5BB9;&#x662F;&#x4E0D;&#x662F;&#x770B;&#x4E0D;&#x5230;&#x554A;&#xFF0C;&#x5176;&#x5B9E;&#x4E0D;&#x662F;&#x4EE3;&#x7801;&#x7684;&#x95EE;&#x9898;&#x3002;
+&#x5F52;&#x6839;&#x5230;&#x5E95;&#x7684;&#x95EE;&#x9898;&#x5728;&#x4E8E;&#xFF0C; MainTabBar&#x91CC;&#x9762;&#x7684;&#x8BBE;&#x7F6E;&#xFF0C;</p>
+<pre><code>tabBar {
+            class = MoreController;
+            baseOn = UINavigationController;
+
+            title = &quot;&#x66F4;&#x591A;&quot;;
+            image = &quot;xxx4.png&quot;;
+        }
+</code></pre><p>&#x8C03;&#x7528;&#x4E86; UINavigationController&#xFF0C;&#x800C;UINavigationController &#x9ED8;&#x8BA4;&#x662F;&#x6709;&#x5BFC;&#x822A;&#x680F;&#x7684;&#xFF0C;&#x6240;&#x4EE5;&#x5BFC;&#x81F4;&#x521A;&#x597D;&#x90A3;&#x4E2A;&#x8303;&#x56F4;&#x88AB;&#x6321;&#x4E86;&#x3002;&#x53EA;&#x9700;&#x8981;&#x9690;&#x85CF;&#x5C31;&#x597D;&#x4E86;&#x3002;</p>
+<pre><code>tabBar {
+            class = MoreController;
+            baseOn = UINavigationController;
+            baseOnNavigationBar = hide;
+
+            title = &quot;&#x66F4;&#x591A;&quot;;
+            image = &quot;xxx4.png&quot;;
+        }
+</code></pre><p>&#x7136;&#x540E;&#x6700;&#x7EC8;&#x6548;&#x679C;&#x662F;~~
+<img src="assets/5996C16C-5AE1-46F6-A6DF-EF020996A766.png" alt="5996C16C-5AE1-46F6-A6DF-EF020996A766"></p>
+<p>&#x597D;&#x4E86;&#x770B;&#x5230;&#x5934;&#x90E8;&#x7684;&#x5185;&#x5BB9;&#x4E86;~~~
+AAA,BBB,CCC,DDD,EEE,FFF &#x5206;&#x522B;&#x4EE3;&#x8868;&#x4E86; UICollectionViewCell &#x7684;&#x5B50;&#x7C7B;&#x3002;</p>
+<p>&#x6BD4;&#x5982;&#xFF1A;</p>
+<pre><code>UICollectionViewCell {
+    name = AAA;
+    edges = 0;
+    onlyCreate = view;
+    bgColor = #ffffff;
+
+    UIControl {
+        id = theControl;
+        edges = 0;
+
+        UILabel {
+            text = &quot;&#x516C;&#x53F8;&#x7B80;&#x4ECB;&quot;;
+            left = 15;
+            centerY = parent;
+            textColor = #3d3d3d;
+            font = 14;
+        }
+
+        UIImageView {
+            width = 20;
+            height = 30;
+            centerY = parent;
+            right = -15;
+            bgColor = #888c51;
+        }
+
+        UIView {
+            left.right.bottom = 0;
+            height = 1;
+            bgColor = #eeeeee;
+        }
+    }
+}
+</code></pre><p>&#x4EE5;&#x6B64;&#x7C7B;&#x63A8;~~~
+&#x7279;&#x522B;&#x8BF4;&#x660E;&#x7684;&#x662F;&#xFF0C;
+onlyCreate &#x53EF;&#x4EE5;&#x6307;&#x5B9A;&#x662F;&#x5426;&#x521B;&#x5EFA;view &#x6216; controller&#xFF0C;&#x800C;&#x6307;&#x5B9A; view&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x9ED8;&#x8BA4;&#x751F;&#x6210;&#x7684;&#x540D;&#x5B57;&#x4E3A; &#x8BBE;&#x7F6E;&#x7684;&#x503C; &#x2014;&#x2014; name&#x3002;</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1699,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"next":{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"path":"1525959981.md","ref":"1525959981.md","articles":[]},"previous":{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"path":"1525959979.md","ref":"1525959979.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959980.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"next":{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"path":"1525959981.md","ref":"1525959981.md","articles":[]},"previous":{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"path":"1525959979.md","ref":"1525959979.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959980.md","mtime":"2018-05-10T23:29:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

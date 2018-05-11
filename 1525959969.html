@@ -1556,7 +1556,159 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="xamarin-&#x521B;&#x5EFA;&#x4E00;&#x4E2A;-contentpage&#x5BF9;&#x8C61;">Xamarin &#x521B;&#x5EFA;&#x4E00;&#x4E2A; ContentPage&#x5BF9;&#x8C61;</h1>
+<p>&#x521B;&#x5EFA;&#x9009;&#x62E9;&#x5982;&#x4E0B;&#xFF1A;
+<img src="assets/15082552110959.png" alt="">
+&#x6210;&#x529F;&#x521B;&#x5EFA;&#x51FA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; Greetings.cs&#x7684;&#x6587;&#x4EF6;&#xFF0C;&#x5185;&#x5BB9;&#x5982;&#x4E0B;&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class Greetings : ContentPage
+    {
+        public Greetings()
+        {
+            Content = new StackLayout
+            {
+                Children = {
+                    new Label { Text = &quot;Hello ContentPage&quot; }
+                }
+            };
+        }
+    }
+}
+</code></pre><p>&#x52A0;&#x8F7D;&#x8FD9;&#x4E2A;&#x6587;&#x4EF6;&#xFF0C;&#x53EA;&#x9700;&#x8981;&#x56DE;&#x5230; App.xaml.cs&#x6587;&#x4EF6;&#x4FEE;&#x6539;&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>using Xamarin.Forms;
+
+namespace one
+{
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();
+
+            MainPage = new Greetings();
+        }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+    }
+}
+</code></pre><p>&#x65E0;&#x9700;&#x5F15;&#x5165;&#x6587;&#x4EF6;&#xFF0C;&#x633A;&#x597D;&#x7684;~</p>
+<p>&#x8FD0;&#x884C;&#x7684;&#x7ED3;&#x679C;&#x5982;&#x4E0B;&#xFF1A;
+<img src="assets/15082555439101.png" alt=""></p>
+<p>&#x5047;&#x5982;&#x4F60;&#x770B;&#x5230;&#x8FD9;&#x4E2A;&#x6548;&#x679C;&#x65F6;&#xFF0C;&#x4E0D;&#x5FC5;&#x60CA;&#x8BB6;&#xFF0C;&#x8FD9;&#x4E2A;&#x53EF;&#x80FD;&#x662F;&#x7531;&#x4E8E;&#x4F60;&#x521B;&#x5EFA;&#x9879;&#x76EE;&#x65F6;&#x9009;&#x62E9;&#x7684;&#x4E0D;&#x540C;&#x9009;&#x9879;&#x5BFC;&#x81F4;&#x9879;&#x76EE;&#x4EE5;&#x67D0;&#x79CD;&#x7279;&#x5B9A;&#x7684;&#x65B9;&#x5F0F;&#x5904;&#x7406;&#x7684;&#x7ED3;&#x679C;&#x3002;
+&#x5BF9;&#x4E8E;&#x8FD9;&#x79CD;&#x60C5;&#x51B5;&#xFF0C;&#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x7528;&#x4EE3;&#x7801;&#x66F4;&#x6B63;&#x3002;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class Greetings : ContentPage
+    {
+        public Greetings()
+        {
+            Content = new StackLayout
+            {
+                Children = {
+                    new Label { Text = &quot;Hello ContentPage&quot; }
+                }
+            };
+
+            switch(Device.RuntimePlatform) {
+                case Device.iOS:
+                    Padding = new Thickness(0, 20, 0, 0);
+                    break;
+            }
+        }
+    }
+}
+</code></pre><p>&#x91CD;&#x65B0;&#x8FD0;&#x884C;&#xFF1A;
+<img src="assets/15082562268185.png" alt=""></p>
+<p>&#x7EC8;&#x4E8E;&#x641E;&#x5230;&#x9700;&#x8981;&#x7684;&#x6548;&#x679C;&#x4E86;&#x3002;
+&#x901A;&#x8FC7; Device.RuntimePlatform &#x6211;&#x4EEC;&#x53EF;&#x4EE5;&#x83B7;&#x77E5;&#x5F53;&#x524D;&#x5E73;&#x53F0;&#xFF0C;&#x4ECE;&#x800C;&#x5BF9;&#x7279;&#x5B9A;&#x60C5;&#x51B5;&#x5904;&#x7406;&#x7279;&#x5B9A;&#x6570;&#x636E;&#x3002;</p>
+<p>&#x91CD;&#x65B0;&#x518D;&#x8F93;&#x5165;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class Greetings : ContentPage
+    {
+        public Greetings()
+        {
+            Content = new Label { 
+                Text = &quot;Greetings, Xamarin.Forms!&quot;
+            };
+            switch (Device.RuntimePlatform) {
+                case Device.iOS:
+                    Padding = new Thickness(0, 20, 0, 0);
+                    break;
+            }
+        }
+    }
+}
+</code></pre><p>&#x91CD;&#x65B0;&#x8FD0;&#x884C;&#xFF1A;
+<img src="assets/15082565774719.png" alt=""></p>
+<p>&#x5BF9; Label &#x8FDB;&#x884C;&#x5E03;&#x5C40;&#x770B;&#x770B;&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class Greetings : ContentPage
+    {
+        public Greetings()
+        {
+            Content = new Label { 
+                Text = &quot;Greetings, Xamarin.Forms!&quot;,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            };
+        }
+    }
+}
+</code></pre><p>&#x8FD0;&#x884C;&#xFF1A;
+<img src="assets/15082567279063.jpg" alt=""></p>
+<p>&#x8FD8;&#x6709;&#x5BF9;&#x6587;&#x5B57;&#x7684;&#x5BF9;&#x9F50;&#x6539;&#x53D8;&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class Greetings : ContentPage
+    {
+        public Greetings()
+        {
+            Content = new Label { 
+                Text = &quot;Greetings, Xamarin.Forms!&quot;,
+                HorizontalTextAlignment = TextAlignment.Center,
+                VerticalTextAlignment = TextAlignment.Center
+            };
+        }
+    }
+}
+</code></pre><p>&#x4E5F;&#x53EF;&#x4EE5;&#x5B9E;&#x73B0;&#x540C;&#x6837;&#x7684;&#x6548;&#x679C;&#xFF01;</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1751,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Xamarin 创建一个 ContentPage对象","level":"1.9.10","depth":2,"next":{"title":"改动 Xamarin的代码看看","level":"1.9.11","depth":2,"path":"1525959970.md","ref":"1525959970.md","articles":[]},"previous":{"title":"Xamarin 创建一个按钮例子","level":"1.9.9","depth":2,"path":"1525959968.md","ref":"1525959968.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959969.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Xamarin 创建一个 ContentPage对象","level":"1.9.10","depth":2,"next":{"title":"改动 Xamarin的代码看看","level":"1.9.11","depth":2,"path":"1525959970.md","ref":"1525959970.md","articles":[]},"previous":{"title":"Xamarin 创建一个按钮例子","level":"1.9.9","depth":2,"path":"1525959968.md","ref":"1525959968.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959969.md","mtime":"2018-05-11T00:43:45.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

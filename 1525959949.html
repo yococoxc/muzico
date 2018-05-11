@@ -1556,7 +1556,179 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="nodejs-&#x63A5;&#x53E3;&#x8BBE;&#x8BA1;&#x7BC7;">node.js &#x63A5;&#x53E3;&#x8BBE;&#x8BA1;&#x7BC7;</h1>
+<p>1.&#x8981;&#x6E05;&#x6670;&#x8BA4;&#x8BC6;&#x5230;&#x8FD9;&#x4E2A;&#x670D;&#x52A1;&#x662F;&#x600E;&#x4E48;&#x67B6;&#x6784;
+2.&#x6BD4;&#x5982;&#x8BF4;&#x91C7;&#x7528;&#x4EC0;&#x4E48;&#x6570;&#x636E;&#x5E93;
+3.&#x4F7F;&#x7528;&#x4EC0;&#x4E48;ORM&#x6A21;&#x578B;&#x7248;&#x672C;
+4.&#x662F;&#x5426;&#x9700;&#x8981;&#x4E00;&#x4E9B;&#x5B89;&#x5168;&#x8BA4;&#x8BC1;
+5.&#x4EE5;&#x53CA;&#x4E00;&#x4E9B;&#x7528;&#x6237;&#x673A;&#x5236;</p>
+<p><br></p>
+<h3 id="&#x7B80;&#x5355;&#x7684;&#x670D;&#x52A1;&#x63A5;&#x53E3;&#x8BBE;&#x8BA1;">&#x7B80;&#x5355;&#x7684;&#x670D;&#x52A1;&#x63A5;&#x53E3;&#x8BBE;&#x8BA1;</h3>
+<p><img src="assets/E9D383AAF3F91C72D66ACCE36CB3B7E3.png" alt="E9D383AAF3F91C72D66ACCE36CB3B7E3"></p>
+<p>&#x8FD9;&#x4E2A;&#x8BBE;&#x8BA1;&#x5F88;&#x7B80;&#x5355;&#xFF0C;&#x5199;&#x5165;&#x7684;&#x65F6;&#x5019;&#xFF0C;&#x628A;&#x6570;&#x636E;&#x5199;&#x6210; json&#x6587;&#x4EF6;&#xFF0C;&#x7136;&#x540E;&#x83B7;&#x53D6;&#x7684;&#x65F6;&#x5019;&#x628A;&#x6570;&#x636E;&#x4ECE; json&#x6587;&#x4EF6;&#x5904;&#x8BFB;&#x53D6;&#x3002;</p>
+<p><br></p>
+<h3 id="&#x63A5;&#x53E3;">&#x63A5;&#x53E3;</h3>
+<p>&#x7B11;&#x6599;&#x6570;&#x636E;&#x5217;&#x8868;&#x63A5;&#x53E3;&#xFF1A; /data/read?type=cookies
+&#x4E92;&#x8054;&#x7F51;&#x8D44;&#x8BAF;&#x63A5;&#x53E3;&#xFF1A;   /data/read?type=it
+&#x7BA1;&#x7406;&#x6570;&#x636E;&#x5217;&#x8868;&#x63A5;&#x53E3;&#xFF1A; /data/read?type=manager
+&#x6563;&#x6587;&#x6570;&#x636E;&#x5217;&#x8868;&#x63A5;&#x53E3;&#xFF1A; /data/read?type=sanwen
+&#x9605;&#x8BFB;&#x6A21;&#x5757;&#x914D;&#x7F6E;&#x63A5;&#x53E3;&#xFF1A; /read?type=config</p>
+<p>&#x521B;&#x5EFA; data&#x6587;&#x4EF6;&#x5939;&#xFF0C;&#x4E13;&#x95E8;&#x5B58;&#x653E;&#x4E0A;&#x8FF0;&#x63A5;&#x53E3;&#x6570;&#x636E;&#x7684;&#x6587;&#x4EF6;&#x3002;
+&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;myservice/public/data</p>
+<p>cookies.json
+it.json
+manager.json
+sanwen.json
+config.json</p>
+<p>&#x521D;&#x59CB;&#x503C;&#x4E3A;&#x6570;&#x636E;&#xFF1A;</p>
+<pre><code>[]
+</code></pre><h3 id="&#x7B80;&#x5355;&#x7684;&#x6A21;&#x5757;">&#x7B80;&#x5355;&#x7684;&#x6A21;&#x5757;</h3>
+<p>&#x8BFB;&#x53D6;&#x6A21;&#x5757;
+&#x5199;&#x5165;&#x6A21;&#x5757;</p>
+<p>&#x5728; routes &#x6587;&#x4EF6;&#x5939;&#x4E0B;&#x9762;&#x521B;&#x5EFA;&#x4E00;&#x4E2A;&#x540D;&#x4E3A; data.js &#x7684;&#x6587;&#x4EF6;&#x3002;
+&#x8DEF;&#x5F84;&#x4E3A;&#xFF1A;myservice/routes/data.js</p>
+<h4 id="&#x5F15;&#x5165;-datajs-&#x6587;&#x4EF6;&#x5230;-appjs">&#x5F15;&#x5165; data.js &#x6587;&#x4EF6;&#x5230; app.js</h4>
+<pre><code>var data = require(&apos;./routes/data&apos;);
+</code></pre><h4 id="&#x5728;-appjs-&#x4E2D;&#x8BBE;&#x7F6E;-datajs-&#x8DEF;&#x7531;">&#x5728; app.js &#x4E2D;&#x8BBE;&#x7F6E; data.js &#x8DEF;&#x7531;</h4>
+<pre><code>app.use(&apos;/data&apos;, data);
+</code></pre><h3 id="datajs&#x7684;&#x6E90;&#x7801;">data.js&#x7684;&#x6E90;&#x7801;</h3>
+<pre><code>var express = require(&apos;express&apos;);
+var router = express.Router();
+var fs = require(&apos;fs&apos;)
+var PATH = &apos;./public/data/&apos;;
+
+
+
+//&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x6A21;&#x5757;(&#x4F9B;&#x5BA2;&#x6237;&#x7AEF;&#x4F7F;&#x7528;)
+//data/read?type=it
+//&#x5B9E;&#x9645;&#x5C31;&#x662F;data/read?type=it.json
+router.get(&apos;/read&apos;, function(req, res, next) {
+    var type = req.param(&apos;type&apos;) || &apos;&apos;;
+    fs.readFile(PATH + type + &apos;.json&apos;, function (err, data) {
+        if (err) {
+            return res.send({
+                status:0,
+                info:&apos;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;&#x51FA;&#x73B0;&#x5F02;&#x5E38;&apos;
+            });
+        }
+
+        var COUNT = 50;
+
+        //&#x5F02;&#x5E38;&#x5904;&#x7406;
+        var obj = [];
+        try {
+            obj = JSON.parse(data.toString());
+        } catch (e) {
+            obj = [];
+        }
+
+        //&#x8D85;&#x51FA; COUNT &#x7684;&#x6570;&#x636E;&#x591A;&#x5C11;&#x9650;&#x5236;&#xFF0C;&#x5219;&#x53D6;&#x6700;&#x65B0;&#x7684; COUNT &#x4E2A;&#x6570;&#x636E;
+        if (obj.length &gt; COUNT) {
+            obj = obj.slice(0, COUNT);
+        }
+
+        return res.send({
+            status:1,
+            data:obj
+        });
+    });
+});
+
+//&#x6570;&#x636E;&#x5B58;&#x50A8;&#x6A21;&#x5757;(&#x540E;&#x53F0;&#x5F00;&#x53D1;&#x4F7F;&#x7528;)
+router.post(&apos;/write&apos;, function (req, res, next) {
+    //&#x6587;&#x4EF6;&#x540D;
+    var type = req.param(&apos;type&apos;) || &apos;&apos;;
+    //&#x5173;&#x952E;&#x5B57;&#x6BB5;
+    var url = req.param(&apos;url&apos;) || &apos;&apos;;
+    var title = req.param(&apos;title&apos;) || &apos;&apos;;
+    var img = req.param(&apos;img&apos;) || &apos;&apos;;
+    if (!type || !url || !title || !img) {
+        return res.send({
+            status:0,
+            info:&apos;&#x63D0;&#x4EA4;&#x7684;&#x5B57;&#x6BB5;&#x4E0D;&#x5168;&apos;
+        });
+    }
+    //1&#x3001;&#x8BFB;&#x53D6;&#x6587;&#x4EF6;
+    var filePath = PATH + type + &apos;.json&apos;;
+    fs.readFile(filePath, function (err, data) {
+        if (err) {
+            return res.send({
+               status:0,
+               info: &apos;&#x8BFB;&#x53D6;&#x6570;&#x636E;&#x5931;&#x8D25;&apos;
+            });
+        }
+
+        var arr = JSON.parse(data.toString());
+        var obj = {
+            img: img,
+            url: url,
+            title: title,
+            id: guidGenerate(),
+            time: new Date()
+        };
+        arr.splice(0, 0, obj);
+
+        //2&#x3001;&#x5199;&#x5165;&#x6587;&#x4EF6;
+        var newData = JSON.stringify(arr);
+        fs.writeFile(filePath, newData, function (err) {
+            if (err) {
+                return res.send({
+                   status:0,
+                   info:&apos;&#x5199;&#x5165;&#x6587;&#x4EF6;&#x5931;&#x8D25;&apos;
+                });
+            }
+            return res.send({
+                status:1,
+                data:obj
+            });
+        });
+    });
+});
+
+//&#x9605;&#x8BFB;&#x6A21;&#x5757;&#x5199;&#x5165;&#x63A5;&#x53E3;(&#x540E;&#x53F0;&#x5F00;&#x53D1;&#x4F7F;&#x7528;)
+router.post(&apos;/write_config&apos;,function (req, res, next) {
+    //TODO:&#x540E;&#x671F;&#x8FDB;&#x884C;&#x63D0;&#x4EA4;&#x6570;&#x636E;&#x7684;&#x9A8C;&#x8BC1;
+    //&#x9632;xss&#x653B;&#x51FB; xss
+    //npm install xss
+    //require(&apos;xss&apos;)
+    //var str = xss(name);
+    var data = req.body.data;
+
+    var obj = [];
+    try {
+        obj = JSON.parse(data.toString());
+    } catch (e) {
+        obj = [];
+    }
+
+    var newData = JSON.stringify(obj);
+    //&#x5199;&#x5165;
+    fs.writeFile(PATH + &apos;config.json&apos;, newData, function (err) {
+        if (err) {
+            return res.send({
+                status:0,
+                info:&apos;&#x5199;&#x5165;&#x6570;&#x636E;&#x5931;&#x8D25;&apos;
+            });
+        }
+        return res.send({
+            status:1,
+            info:obj
+        });
+    })
+
+});
+
+//guid
+function guidGenerate() {
+    return &apos;xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx&apos;.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0,
+            v = c == &apos;x&apos; ? r : (r &amp; 0x3 | 0x8);
+        return v.toString(16);
+    }).toUpperCase();
+}
+
+module.exports = router;
+</code></pre>
                                 
                                 </section>
                             
@@ -1599,7 +1771,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"next":{"title":"node.js express 创建篇","level":"1.5.3","depth":2,"path":"1525959950.md","ref":"1525959950.md","articles":[]},"previous":{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"path":"1525959948.md","ref":"1525959948.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959949.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"next":{"title":"node.js express 创建篇","level":"1.5.3","depth":2,"path":"1525959950.md","ref":"1525959950.md","articles":[]},"previous":{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"path":"1525959948.md","ref":"1525959948.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959949.md","mtime":"2018-05-10T23:07:59.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

@@ -1556,7 +1556,48 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="swift4-uiview-&#x81EA;&#x5B9A;&#x4E49;">Swift4 UIView &#x81EA;&#x5B9A;&#x4E49;</h1>
+<pre><code>import UIKit
+
+class ViewA: UIView {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        print(&quot;--------&gt;A&quot;)
+        self.backgroundColor = UIColor.green;
+    }
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        print(&quot;--------&gt;B&quot;)
+        self.backgroundColor = UIColor.blue
+    }
+
+    init(string : String) {
+        super.init(frame: CGRect(x:0,y:0,width:0,height:0))
+        print(&quot;--------&gt;C&quot;)
+        self.backgroundColor = UIColor.orange;
+    }
+}
+</code></pre><p>&#x4F7F;&#x7528;:</p>
+<pre><code>var aaa = ViewA();
+aaa.frame = CGRect(x:50,y:60,width:100,height:60);
+self.view.addSubview(aaa);
+</code></pre><p>&#x6267;&#x884C;&#x4E86;&#xFF1A;
+--------&gt;A
+<br></p>
+<pre><code>var aaa = ViewA.init(frame: CGRect(x:0,y:0,width:300,height:80));
+self.view.addSubview(aaa);
+</code></pre><p>&#x6267;&#x884C;&#x4E86;&#xFF1A;
+--------&gt;A
+<br></p>
+<pre><code>var aaa = ViewA.init(string: &quot;123456&quot;);
+aaa.frame = CGRect(x:50,y:60,width:100,height:60);
+self.view.addSubview(aaa);
+</code></pre><p>&#x6267;&#x884C;&#x4E86;&#xFF1A;
+--------&gt;C
+<br></p>
+<p>swift &#x65E0;&#x6CD5;&#x521D;&#x59CB;&#x5316; init()..........</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1640,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Swift4 UIView 自定义","level":"1.7.5","depth":2,"next":{"title":"Swift4 UIViewController 相关","level":"1.7.6","depth":2,"path":"1525959956.md","ref":"1525959956.md","articles":[]},"previous":{"title":"Swift4 调用 OC 写的组件","level":"1.7.4","depth":2,"path":"1525959954.md","ref":"1525959954.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959955.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Swift4 UIView 自定义","level":"1.7.5","depth":2,"next":{"title":"Swift4 UIViewController 相关","level":"1.7.6","depth":2,"path":"1525959956.md","ref":"1525959956.md","articles":[]},"previous":{"title":"Swift4 调用 OC 写的组件","level":"1.7.4","depth":2,"path":"1525959954.md","ref":"1525959954.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959955.md","mtime":"2018-05-10T23:21:30.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

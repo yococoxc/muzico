@@ -1556,7 +1556,97 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="easy-2-oc-&#x4E3B;&#x9875;-index">Easy 2 OC &#x4E3B;&#x9875; index</h1>
+<p>&#x4EE3;&#x7801;</p>
+<pre><code>UIView {
+    name = Index;
+    edges = 0;
+    bgColor = #eeeeee;
+    interfaceOrientation = p;
+
+    UIView {
+        id = headView;
+        top.left.right = 0;
+        x-height = 88;
+        height = 64;
+
+        UIView {
+            id = navView;
+            left.right.bottom = 0;
+            height = 44;
+
+            UILabel {
+                center = parent;
+                text = &quot;&#x9996;&#x9875;&quot;;
+                font = 20;
+            }
+
+            UIButton {
+                id = headerLeftButton;
+                left = 10;
+                width = 60;
+                height = 44;
+                centerY = parent;
+                text = &quot;&#x5DE6;&#x6309;&#x94AE;&quot;;
+                textColor = #2a2a2a;
+            }
+
+            UIButton {
+                id = headerRightButton;
+                right = -10;
+                width = 60;
+                height = 44;
+                centerY = parent;
+                text = &quot;&#x53F3;&#x6309;&#x94AE;&quot;;
+                textColor = #a2a2a;
+            }
+        }
+
+        UIView {
+            left.right.bottom = 0;
+            height = 1;
+            bgColor = #3d3d3d;
+        }
+    }
+
+    UIView {
+        id = contentView;
+        bottom.left.right = 0;
+        top = headView.bottom;
+
+        UICollectionView {
+            id = collectionView;
+            edges = 0;
+
+            section {
+                headerClass = BBBB;
+                headerSize = parent,150;
+                name = &quot;&#x5E7F;&#x544A;&quot;;
+            }
+            section {
+                headerClass = BBBB;
+                headerSize = parent,100;
+                name = &quot;&#x4EA7;&#x54C1;&#x5206;&#x7C7B;&quot;;
+            }
+            section {
+                headerClass = BBBB;
+                headerSize = parent,44;
+                name = &quot;&#x4EA7;&#x54C1;&#x63A8;&#x8350;&quot;;
+                cellClas = AAA6;
+                cellSize = (parent-5-5-5)/2,.width;
+                cellCount = 16;
+                edgeInsets = 5,5,5,5;
+                lineSpacing = 5;
+                interitemSpacing = 5;
+            }
+        }
+    }
+}
+</code></pre><p>&#x6548;&#x679C;&#xFF1A;
+<img src="assets/test01.gif" alt="test01"></p>
+<p>interfaceOrientation &#x662F;&#x7528;&#x6765;&#x8BBE;&#x7F6E;&#x9009;&#x62E9;&#x65B9;&#x5411;&#x7684;&#x3002;&#x5176;&#x503C;&#x5305;&#x62EC;all,landscape,portrait,left,right,portraitUpsideDown,allButUpsideDown&#x3002;</p>
+<p>UICollectionView &#x4E2D;&#x4F7F;&#x7528; section &#x53EF;&#x4EE5;&#x6307;&#x5B9A; &#x5BF9;&#x5E94;&#x7684;header&#xFF0C;footer&#xFF0C;cell&#x3002;</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1689,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"next":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},"previous":{"title":"Easy 2 OC 手册","level":"1.12.3","depth":2,"path":"1525959978.md","ref":"1525959978.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959979.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC 主页 index","level":"1.12.4","depth":2,"next":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},"previous":{"title":"Easy 2 OC 手册","level":"1.12.3","depth":2,"path":"1525959978.md","ref":"1525959978.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959979.md","mtime":"2018-05-10T23:28:26.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

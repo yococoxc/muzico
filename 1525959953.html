@@ -1556,7 +1556,63 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="swift4-&#x8C03;&#x7528;-oc-&#x5199;&#x7684;&#x7EC4;&#x4EF6;---delegate&#x7BC7;">Swift4 &#x8C03;&#x7528; OC &#x5199;&#x7684;&#x7EC4;&#x4EF6; - delegate&#x7BC7;</h1>
+<p>&#x9996;&#x5148;&#x5C55;&#x793A;&#x4E00;&#x4E2A;&#x8BF7;&#x6C42;API&#x7684;&#x7EC4;&#x4EF6;&#xFF1A;</p>
+<p>EntAPI.h</p>
+<pre><code>#import &lt;Foundation/Foundation.h&gt;
+
+#import &quot;QSRequest.h&quot;
+
+typedef NS_ENUM(NSUInteger, EntAPIName) {
+    EntAPINameEcapi_article_list,
+};
+
+@protocol EntAPIDelegate;
+
+@interface EntAPI : NSObject
+
+/*****************************************/
+
+@property(nonatomic,weak,nullable) id&lt;EntAPIDelegate&gt; delegate;
+
++ (instancetype _Nonnull ) apiWithDelegate:(_Nonnull id&lt;EntAPIDelegate&gt;)delegate;
+
+/*****************************************/
+
+- (void) APIByEcapi_article_list;
+
+@end
+
+@protocol EntAPIDelegate &lt;NSObject&gt;
+
+@optional
+- (void) entAPI:(nonnull EntAPI*)aAPI withName:(EntAPIName)name withResult:(nullable QSRequestResult*)result withError:(nullable NSError*)error;
+
+@end
+</code></pre><p>Swift &#x7684;&#x8C03;&#x7528;&#xFF1A;</p>
+<pre><code>import UIKit
+
+class EntIndexController: UIViewController,EntAPIDelegate {
+
+    var theAPI : EntAPI? = nil
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+
+        // Do any additional setup after loading the view.
+
+        self.view.backgroundColor = UIColor.red
+
+        theAPI = EntAPI.init(delegate: self)
+        theAPI?.apiByEcapi_article_list()
+
+    }
+
+    func entAPI(_ aAPI: EntAPI, with name: EntAPIName, with result: QSRequestResult?, withError error: Error?) {
+        print(result!.json!)
+    }
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -1599,7 +1655,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Swift4 调用 OC 写的组件 - delegate篇","level":"1.7.3","depth":2,"next":{"title":"Swift4 调用 OC 写的组件","level":"1.7.4","depth":2,"path":"1525959954.md","ref":"1525959954.md","articles":[]},"previous":{"title":"Swift 从大到小排序 (闭包，多种写法)","level":"1.7.2","depth":2,"path":"1525959952.md","ref":"1525959952.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959953.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Swift4 调用 OC 写的组件 - delegate篇","level":"1.7.3","depth":2,"next":{"title":"Swift4 调用 OC 写的组件","level":"1.7.4","depth":2,"path":"1525959954.md","ref":"1525959954.md","articles":[]},"previous":{"title":"Swift 从大到小排序 (闭包，多种写法)","level":"1.7.2","depth":2,"path":"1525959952.md","ref":"1525959952.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959953.md","mtime":"2018-05-10T23:20:43.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

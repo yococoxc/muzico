@@ -1554,7 +1554,67 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="&#x7B80;&#x5355;&#x8BA4;&#x8BC6;-xamarin">&#x7B80;&#x5355;&#x8BA4;&#x8BC6; Xamarin</h1>
+<p>xamarin &#x7684;&#x56DB;&#x4E2A;&#x6587;&#x4EF6;&#xFF1A;App.xaml&#xFF0C;App.xaml.cs&#xFF0C;onePage.xaml&#xFF0C;onePage.xaml.cs&#x3002;</p>
+<p>App.xaml&#xFF1A;</p>
+<p>```&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;</p>
+<p><application xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:class="one.App">
+    <application.resources>
+        <!-- Application resource dictionary -->
+    &lt;/Application.Resources&gt;
+</application.resources></application></p>
+<pre><code>
+App.xaml.cs&#xFF1A;
+</code></pre><p>using Xamarin.Forms;</p>
+<p>namespace one
+{
+    public partial class App : Application
+    {
+        public App()
+        {
+            InitializeComponent();</p>
+<pre><code>        MainPage = new onePage();
+    }
+
+    protected override void OnStart()
+    {
+        // Handle when your app starts
+    }
+
+    protected override void OnSleep()
+    {
+        // Handle when your app sleeps
+    }
+
+    protected override void OnResume()
+    {
+        // Handle when your app resumes
+    }
+}
+</code></pre><p>}</p>
+<pre><code>
+onePage.xaml&#xFF1A;
+
+```&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; xmlns:local=&quot;clr-namespace:one&quot; x:Class=&quot;one.onePage&quot;&gt;
+    &lt;Label Text=&quot;Welcome to Xamarin Forms!&quot; VerticalOptions=&quot;Center&quot; HorizontalOptions=&quot;Center&quot; /&gt;
+&lt;/ContentPage&gt;
+</code></pre><p>onePage.xaml.cs&#xFF1A;</p>
+<p>```using Xamarin.Forms;</p>
+<p>namespace one
+{
+    public partial class onePage : ContentPage
+    {
+        public onePage()
+        {
+            InitializeComponent();
+        }
+    }
+}
+```</p>
+<p>&#x6548;&#x679C;&#x5982;&#x4E0B;&#xFF1A;
+<img src="assets/15082549278331.png" alt=""></p>
+
                                 
                                 </section>
                             
@@ -1593,7 +1653,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"简单认识 Xamarin","level":"1.9.12","depth":2,"next":{"title":"PHP","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"改动 Xamarin的代码看看","level":"1.9.11","depth":2,"path":"1525959970.md","ref":"1525959970.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959971.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"简单认识 Xamarin","level":"1.9.12","depth":2,"next":{"title":"PHP","level":"1.10","depth":1,"ref":"","articles":[]},"previous":{"title":"改动 Xamarin的代码看看","level":"1.9.11","depth":2,"path":"1525959970.md","ref":"1525959970.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959971.md","mtime":"2018-05-11T00:42:20.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

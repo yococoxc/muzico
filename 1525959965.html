@@ -1556,7 +1556,43 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="xamarin-&#x521B;&#x5EFA;-alert-&#x4E0E;-lambdas&#x8868;&#x8FBE;&#x5F0F;">Xamarin &#x521B;&#x5EFA; Alert &#x4E0E; Lambdas&#x8868;&#x8FBE;&#x5F0F;</h1>
+<p>AlertCallbacksPage.xaml&#xFF1A;</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;ContentPage xmlns=&quot;http://xamarin.com/schemas/2014/forms&quot; xmlns:x=&quot;http://schemas.microsoft.com/winfx/2009/xaml&quot; x:Class=&quot;one.AlertCallbacksPage&quot;&gt;
+    &lt;StackLayout&gt;
+        &lt;Button Text=&quot;Invoke Alert&quot; FontSize=&quot;Large&quot; HorizontalOptions=&quot;Center&quot; VerticalOptions=&quot;CenterAndExpand&quot; Clicked=&quot;OnButtonClicked&quot;/&gt;
+        &lt;Label x:Name=&quot;label&quot; Text=&quot;Tap Button to invoke alert&quot; HorizontalOptions=&quot;Center&quot; VerticalOptions=&quot;CenterAndExpand&quot; /&gt;
+    &lt;/StackLayout&gt;
+&lt;/ContentPage&gt;
+</code></pre><p>AlertCallbacksPage.xaml.cs&#xFF1A;</p>
+<pre><code>using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public partial class AlertCallbacksPage : ContentPage
+    {
+        public AlertCallbacksPage()
+        {
+            InitializeComponent();
+        }
+
+        void OnButtonClicked(object sender, EventArgs args) {
+            Task&lt;bool&gt; task = DisplayAlert(&quot;Simple Alert&quot;, &quot;Decide on an option&quot;, &quot;yes or ok&quot;, &quot;no or cancel&quot;);
+            task.ContinueWith((Task&lt;bool&gt; taskResult) =&gt; {
+                Device.BeginInvokeOnMainThread( () =&gt; {
+                    label.Text = String.Format(&quot;Alert {0} button was pressed&quot;, taskResult.Result ? &quot;OK&quot; : &quot;Cancel&quot;);
+                });
+            });
+            label.Text = &quot;Alert is currently displayed&quot;;
+        }
+    }
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -1599,7 +1635,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Xamarin 创建 Alert 与 Lambdas表达式","level":"1.9.6","depth":2,"next":{"title":"Xamarin 创建 Alert","level":"1.9.7","depth":2,"path":"1525959966.md","ref":"1525959966.md","articles":[]},"previous":{"title":"Xamarin 创建 Alert 与 await","level":"1.9.5","depth":2,"path":"1525959964.md","ref":"1525959964.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959965.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Xamarin 创建 Alert 与 Lambdas表达式","level":"1.9.6","depth":2,"next":{"title":"Xamarin 创建 Alert","level":"1.9.7","depth":2,"path":"1525959966.md","ref":"1525959966.md","articles":[]},"previous":{"title":"Xamarin 创建 Alert 与 await","level":"1.9.5","depth":2,"path":"1525959964.md","ref":"1525959964.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959965.md","mtime":"2018-05-11T00:45:43.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

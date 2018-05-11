@@ -1554,7 +1554,323 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="easy-2-oc--&#x4E3B;&#x5BFC;&#x822A;-maintabbar">Easy 2 OC  &#x4E3B;&#x5BFC;&#x822A; MainTabBar</h1>
+<p>&#x4EE3;&#x7801;&#xFF1A;</p>
+<pre><code>UIView {
+    name = MainTabBar;
+    edges = 0;
+
+    UITabBarController {
+        id = tabBarController;
+        top.left.right = 0;
+        bottom = -49;
+        x-bottom = -88;
+        //tabbar = hide;
+
+        tabBar {
+            class = IndexController;
+            title = &quot;&#x9996;&#x9875;&quot;;
+            image = &quot;xxx2.png&quot;;
+        }
+        tabBar {
+            class = ProductFilterController;
+            title = &quot;&#x4EA7;&#x54C1;&quot;;
+            image = &quot;xxx3.png&quot;;
+        }
+        tabBar {
+            class = SceneListController;
+            title = &quot;&#x573A;&#x666F;&quot;;
+            image = &quot;xxx4.png&quot;;
+        }
+        tabBar {
+            class = ShoppingCartController;
+            baseOn = UINavigationController;
+            baseOnNavigationBar = hide;
+            title = &quot;&#x8D2D;&#x7269;&#x8F66;&quot;;
+            image = &quot;xxx4.png&quot;;
+        }
+        tabBar {
+            class = MoreController;
+            baseOn = UINavigationController;
+
+            title = &quot;&#x66F4;&#x591A;&quot;;
+            image = &quot;xxx4.png&quot;;
+        }
+    }
+
+    UIView {
+        id = theFootView;
+        left.right.bottom = 0;
+        top = tabBarController.bottom;
+
+        UIView {
+            id = footView;
+            left.right.top = 0;
+            height = 49;
+            bgColor = #000ff0;
+        }
+    }
+}
+</code></pre><p>&#x6548;&#x679C;&#x56FE;&#xFF1A;
+<img src="assets/8F1B0459-CDD2-472B-B1AC-A18FBAD00861.png" alt="8F1B0459-CDD2-472B-B1AC-A18FBAD00861"></p>
+<p>&#x751F;&#x6210;MainTabBarView.h</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+#import &quot;QSKit.h&quot;
+
+@protocol MainTabBarViewDelegate;
+
+@interface MainTabBarView : UIView
+
+#pragma mark - &#x5C5E;&#x6027;
+@property (nonatomic, weak) UIView* theLoadView;
+
+@property (nonatomic, strong) UITabBarController* tabBarController;
+
+@property (nonatomic, weak) UIView* theFootView;
+
+@property (nonatomic, weak) UIView* footView;
+
+//&#x81EA;&#x52A8;&#x521B;&#x5EFA;&#x7684;&#x534F;&#x8BAE;
+@property (nonatomic, weak) id&lt;MainTabBarViewDelegate&gt; delegate;
+
+#pragma mark - &#x65B9;&#x6CD5;
+- (void) addToSuper: (id) aSuper;
+
+//&#x91CD;&#x5199;&#x8FD9;&#x4E2A;&#x65B9;&#x6CD5;&#x53EF;&#x4EE5;&#x5B9A;&#x4E49;&#x4E0A;&#x9762;&#x65B9;&#x6CD5;&#x7684;&#x5E03;&#x5C40;&#x6837;&#x5F0F;&#xFF0C;&#x8FD4;&#x56DE; YES &#x751F;&#x6548;&#x3002;
+- (BOOL) addToSuperWithSetupLayoutFromSuperView:(UIView*)aSuperView;
+
+@end
+
+@protocol MainTabBarViewDelegate &lt;NSObject&gt;
+
+//&#x5199;&#x4E0A;&#x9700;&#x8981;&#x7684;&#x534F;&#x8BAE;&#x65B9;&#x6CD5;&#xFF1A;
+
+@end
+</code></pre><p>&#x751F;&#x6210;MainTabBarView.m</p>
+<pre><code>#import &quot;MainTabBarView.h&quot;
+
+#import &quot;Masonry.h&quot;
+
+@interface MainTabBarView ()
+
+@end
+
+@implementation MainTabBarView
+
+#pragma mark - &#x5185;&#x7F6E;&#x7684;&#x65B9;&#x6CD5;
+- (void) addToSuper:(id)aSuper {
+    if ([aSuper isKindOfClass:[UIViewController class]]) {
+        UIViewController* tempController = aSuper;
+        [self addToSuper:[tempController view]];
+        return;
+    }
+    if ([aSuper isKindOfClass:[UIView class]]) {
+        UIView* tempView = aSuper;
+        [tempView addSubview:self];
+
+        if ([self addToSuperWithSetupLayoutFromSuperView:tempView] == NO) {
+            [self mas_remakeConstraints:^(MASConstraintMaker *make) {
+                make.edges.mas_equalTo(0);
+            }];
+        }
+        return;
+    }
+}
+- (BOOL) addToSuperWithSetupLayoutFromSuperView:(UIView*)aSuperView {
+
+    return NO;
+}
+#pragma mark - &#x521D;&#x59CB;&#x7684;&#x65B9;&#x6CD5;
+- (instancetype) init {
+    if (self = [super init]) {
+        [self setupUI];
+    }
+    return self;
+}
+- (instancetype) initWithFrame:(CGRect)frame {
+    if (self = [super initWithFrame:frame]) {
+        [self setupUI];
+    }
+    return self;
+}
+#pragma mark - &#x914D;&#x7F6E;&#x754C;&#x9762;&#x7684;&#x65B9;&#x6CD5;
+- (void) setupUI {
+    if (self.theLoadView) {
+        return;
+    }
+
+    #pragma mark - UI - init - theLoadView
+    UIView* theLoadView = [UIView new];
+    [self addSubview:theLoadView];
+    [theLoadView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.edges.mas_equalTo(0);
+    }];
+    self.theLoadView = theLoadView;
+
+    #pragma mark - UI - init - tabBarController
+    UITabBarController* tabBarController = [UITabBarController new];
+    [theLoadView addSubview:tabBarController.view];
+    [tabBarController.view mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.top.left.right.mas_equalTo(0);
+        if ([QSKit shared].iPhoneX) {
+            make.bottom.mas_equalTo(-88);
+        } else {;
+            make.bottom.mas_equalTo(-49);
+        }
+    }];
+    self.tabBarController = tabBarController;
+
+    #pragma mark - UI - init - theFootView
+    UIView* theFootView = [UIView new];
+    [theLoadView addSubview:theFootView];
+    [theFootView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.right.bottom.mas_equalTo(0);
+        make.top.mas_equalTo(tabBarController.view.mas_bottom);
+    }];
+    self.theFootView = theFootView;
+
+    #pragma mark - UI - init - footView
+    UIView* footView = [UIView new];
+    footView.backgroundColor = [QSKit color:@&quot;#000ff0&quot;];
+    [theFootView addSubview:footView];
+    [footView mas_makeConstraints:^(MASConstraintMaker *make) {
+
+        make.left.right.top.mas_equalTo(0);
+        make.height.mas_equalTo(49);
+    }];
+    self.footView = footView;
+
+}
+
+@end
+</code></pre><p>&#x751F;&#x6210;MainTabBarController.h</p>
+<pre><code>#import &lt;UIKit/UIKit.h&gt;
+
+@interface MainTabBarController : UIViewController
+
+@end
+</code></pre><p>&#x751F;&#x6210;MainTabBarController.m</p>
+<pre><code>#import &quot;MainTabBarController.h&quot;
+
+#import &quot;MainTabBarView.h&quot;
+
+@interface MainTabBarController ()&lt;MainTabBarViewDelegate&gt;
+
+@property (nonatomic, weak) MainTabBarView* myView;
+
+@end
+
+@implementation MainTabBarController
+
+#pragma mark - dealloc
+- (void) dealloc {
+
+}
+
+#pragma mark - loadView
+- (void) loadView {
+    [super loadView];
+
+    self.view.backgroundColor = [UIColor whiteColor];
+
+    MainTabBarView* myView = [MainTabBarView new];
+    myView.delegate = self;
+    [myView addToSuper:self];
+    self.myView = myView;
+}
+
+#pragma mark - viewDidLoad
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    // Do any additional setup after loading the view, typically from a nib.
+
+    NSMutableArray* viewControllerKeepArray = [NSMutableArray array];
+    {
+        UIViewController* viewController = [NSClassFromString(@&quot;IndexController&quot;) new];
+        viewController.tabBarItem.title = @&quot;&#x9996;&#x9875;&quot;;
+        viewController.tabBarItem.image = [QSKit image:@&quot;xxx2.png&quot;];
+        [viewControllerKeepArray addObject:viewController];
+    }
+    {
+        UIViewController* viewController = [NSClassFromString(@&quot;ProductFilterController&quot;) new];
+        viewController.tabBarItem.title = @&quot;&#x4EA7;&#x54C1;&quot;;
+        viewController.tabBarItem.image = [QSKit image:@&quot;xxx3.png&quot;];
+        [viewControllerKeepArray addObject:viewController];
+    }
+    {
+        UIViewController* viewController = [NSClassFromString(@&quot;SceneListController&quot;) new];
+        viewController.tabBarItem.title = @&quot;&#x573A;&#x666F;&quot;;
+        viewController.tabBarItem.image = [QSKit image:@&quot;xxx4.png&quot;];
+        [viewControllerKeepArray addObject:viewController];
+    }
+    {
+        UIViewController* tempViewController = [NSClassFromString(@&quot;ShoppingCartController&quot;) new];
+
+        UINavigationController* viewController = [[UINavigationController alloc] initWithRootViewController:tempViewController];
+        viewController.navigationBarHidden = YES;
+        viewController.navigationBar.hidden = YES;
+        viewController.tabBarItem.title = @&quot;&#x8D2D;&#x7269;&#x8F66;&quot;;
+        viewController.tabBarItem.image = [QSKit image:@&quot;xxx4.png&quot;];
+        [viewControllerKeepArray addObject:viewController];
+    }
+    {
+        UIViewController* tempViewController = [NSClassFromString(@&quot;MoreController&quot;) new];
+
+        UINavigationController* viewController = [[UINavigationController alloc] initWithRootViewController:tempViewController];
+        viewController.tabBarItem.title = @&quot;&#x66F4;&#x591A;&quot;;
+        viewController.tabBarItem.image = [QSKit image:@&quot;xxx4.png&quot;];
+        [viewControllerKeepArray addObject:viewController];
+    }
+    self.myView.tabBarController.viewControllers = viewControllerKeepArray;
+
+}
+
+#pragma mark - viewWillAppear
+- (void) viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+
+}
+
+#pragma mark - viewDidAppear
+- (void) viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+
+}
+
+#pragma mark - viewWillDisappear
+- (void) viewWillDisappear:(BOOL)animated {
+    [super viewWillDisappear:animated];
+
+}
+
+#pragma mark - viewDidDisappear
+- (void) viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+
+}
+
+#pragma mark - MainTabBarViewDelegate
+
+
+#pragma mark - &#x662F;&#x5426;&#x9690;&#x85CF;&#x72B6;&#x6001;&#x680F;
+//- (BOOL) prefersStatusBarHidden {
+//    return YES;
+//}
+
+#pragma mark - &#x65B9;&#x5411;&#x65CB;&#x8F6C;
+//- (BOOL) shouldAutorotate {
+//    return YES;
+//}
+//- (UIInterfaceOrientationMask) supportedInterfaceOrientations {
+//    return UIInterfaceOrientationMaskAll;
+//}
+
+@end
+</code></pre>
                                 
                                 </section>
                             
@@ -1593,7 +1909,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"next":{"title":"React","level":"1.13","depth":1,"ref":"","articles":[{"title":"React  组件 props","level":"1.13.1","depth":2,"path":"1525959982.md","ref":"1525959982.md","articles":[]},{"title":"React 编写最简单的组件","level":"1.13.2","depth":2,"path":"1525959983.md","ref":"1525959983.md","articles":[]},{"title":"React 最初的项目","level":"1.13.3","depth":2,"path":"1525959984.md","ref":"1525959984.md","articles":[]},{"title":"React 开始~","level":"1.13.4","depth":2,"path":"1525959985.md","ref":"1525959985.md","articles":[]}]},"previous":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959981.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Easy 2 OC  主导航 MainTabBar","level":"1.12.6","depth":2,"next":{"title":"React","level":"1.13","depth":1,"ref":"","articles":[{"title":"React  组件 props","level":"1.13.1","depth":2,"path":"1525959982.md","ref":"1525959982.md","articles":[]},{"title":"React 编写最简单的组件","level":"1.13.2","depth":2,"path":"1525959983.md","ref":"1525959983.md","articles":[]},{"title":"React 最初的项目","level":"1.13.3","depth":2,"path":"1525959984.md","ref":"1525959984.md","articles":[]},{"title":"React 开始~","level":"1.13.4","depth":2,"path":"1525959985.md","ref":"1525959985.md","articles":[]}]},"previous":{"title":"Easy 2 OC 更多 More","level":"1.12.5","depth":2,"path":"1525959980.md","ref":"1525959980.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959981.md","mtime":"2018-05-10T23:30:56.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

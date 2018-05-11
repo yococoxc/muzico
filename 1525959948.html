@@ -1554,7 +1554,142 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="nodejs-&#x540E;&#x53F0;&#x8BBE;&#x8BA1;&#x7BC7;">node.js &#x540E;&#x53F0;&#x8BBE;&#x8BA1;&#x7BC7;</h1>
+<p><img src="assets/BD0C28DFA5BF41DC74528588E46D970E.png" alt="BD0C28DFA5BF41DC74528588E46D970E">
+&#x975E;&#x5E38;&#x7B80;&#x5355;&#x7684;&#x540E;&#x53F0;&#x7CFB;&#x7EDF;
+&#x53EA;&#x63D0;&#x4F9B;&#x5199;&#x5165;&#xFF0C;&#x6CA1;&#x6709;&#x4FEE;&#x6539;&#xFF0C;&#x6CA1;&#x6709;&#x5220;&#x9664;</p>
+<p>&#x4F7F;&#x7528;&#x547D;&#x4EE4;&#x5B89;&#x88C5; express-session :</p>
+<pre><code>express-session --save
+</code></pre><p>&#x4E4B;&#x540E;&#xFF0C;&#x5728; app.js &#x4E2D;&#x5F15;&#x5165;&#xFF1A;</p>
+<pre><code>var session = require(&apos;express-session&apos;);
+</code></pre><pre><code>app.use(session({
+    secret: &apos;#sddjswjdhww22ygfw2233@@@s#$!@%*12&apos;,
+    resave: false,
+    saveUninitialized: true
+}));
+</code></pre><p>&#x5728; /routes/data.js &#x5904;&#x8FFD;&#x52A0;&#x767B;&#x5F55;&#x63A5;&#x53E3;&#xFF1A;</p>
+<pre><code>//&#x767B;&#x5F55;&#x63A5;&#x53E3;
+router.post(&apos;/login&apos;,function (req, res, next) {
+    //&#x7528;&#x6237;&#x540D;&#x3001;&#x5BC6;&#x7801;&#x3001;&#x9A8C;&#x8BC1;&#x7801;
+    var username = req.body.username;
+    var password = req.body.password;
+
+    //TODO:&#x5BF9;&#x7528;&#x6237;&#x540D;&#x3001;&#x5BC6;&#x7801;&#x8FDB;&#x884C;&#x6821;&#x9A8C;
+    //xss&#x5904;&#x7406;&#x3001;&#x5224;&#x7A7A;
+
+    //&#x5BC6;&#x7801;&#x52A0;&#x5BC6; md5(md5(password + &apos;&#x968F;&#x673A;&#x5B57;&#x7B26;&#x4E32;&apos;))
+    //&#x5BC6;&#x7801;&#x9700;&#x8981;&#x52A0;&#x5BC6; --&gt; &#x53EF;&#x4EE5;&#x5199;&#x5165;JSON&#x6587;&#x4EF6;
+    if (username === &apos;admin&apos; &amp;&amp; password === &apos;123456&apos;) {
+        req.session.user = {
+            username: username
+        };
+        return res.send({
+            status:1
+        });
+    }
+
+    return res.send({
+        status:0,
+        info:&apos;&#x767B;&#x5F55;&#x5931;&#x8D25;&apos;
+    });
+});
+</code></pre><p>&#x521B;&#x5EFA;&#x76F8;&#x5E94;&#x7684;&#x9875;&#x9762;&#xFF1A;
+&#xFF08;&#x9879;&#x76EE;&#x539F;&#x672C;&#x5DF2;&#x7ECF;&#x81EA;&#x52A8;&#x521B;&#x5EFA; ./views/error.ejs &#x548C; ./views/index.ejs&#xFF09;</p>
+<p>./views/edit.ejs
+./views/login.ejs
+./views/tuijian.ejs</p>
+<p><br>
+&#x8BBE;&#x7F6E;&#x8DEF;&#x7531;&#xFF08;&#x5728;index.js&#xFF09;&#xFF1A;
+&#x6839;&#x636E;&#x57DF;&#x540D;&#x4E0D;&#x540C;&#xFF0C;&#x6839;&#x636E;&#x76F8;&#x5E94;&#x7684;&#x903B;&#x8F91;&#xFF0C;&#x8DF3;&#x8F6C;&#x5230;&#x76F8;&#x5E94;&#x7684;&#x9875;&#x9762;&#x3002;</p>
+<pre><code>var express = require(&apos;express&apos;);
+var router = express.Router();
+var fs = require(&apos;fs&apos;);
+var PATH = &apos;./public/data/&apos;;
+
+router.get(&apos;/&apos;, function(req, res, next) {
+    if(!req.session.user){
+        return res.render(&apos;login&apos;, {});
+    }
+    res.render(&apos;index&apos;, {});
+});
+
+router.get(&apos;/login&apos;, function(req, res, next) {
+    res.render(&apos;login&apos;, {});
+});
+
+router.get(&apos;/tuijian&apos;, function(req, res, next) {
+    if(!req.session.user){
+        return res.render(&apos;login&apos;, {});
+    }
+    res.render(&apos;tuijian&apos;, {});
+});
+
+router.get(&apos;/edit&apos;, function(req, res, next) {
+    if(!req.session.user){
+        return res.render(&apos;login&apos;, {});
+    }
+    var type = req.query.type;
+    if(type){
+        var obj = {};
+        switch (type){
+            case &apos;sanwen&apos;:
+                obj = {};
+                break;
+            case &apos;it&apos;:
+                obj = {};
+                break;
+            case &apos;manager&apos;:
+                obj = {};
+                break;
+            case &apos;cookies&apos;:
+                obj = {};
+                break;
+            default :
+                return res.send({
+                    status:0,
+                    info: &apos;&#x53C2;&#x6570;&#x9519;&#x8BEF;&apos;
+                });
+                break;
+        }
+
+        fs.readFile(PATH + type + &apos;.json&apos;, function (err, data) {
+            if (err) {
+              return res.send({
+                  status:0,
+                  info: &apos;fail....&apos;
+              });
+            }
+
+            var obj = [];
+            try {
+              obj = JSON.parse(data.toString());
+            } catch (e) {
+              obj = [];
+            }
+            return res.render(&apos;edit&apos;, {
+              data: obj
+            });
+        });
+
+    }else{
+        return res.send({
+            status:0,
+            info: &apos;&#x53C2;&#x6570;&#x9519;&#x8BEF;&apos;
+        });
+    }
+});
+
+//&#x9996;&#x9875;&#x5927;&#x8868;&#x5355;
+
+module.exports = router;
+</code></pre><p>&#x4E3A;&#x4E86;&#x52A0;&#x5F3A;&#x5B89;&#x5168;&#x6027;&#xFF0C;&#x5199;&#x5165;&#x6570;&#x636E;&#x7684;&#x63A5;&#x53E3;&#x52A0;&#x4E0A;</p>
+<pre><code>if (!req.session.user) {
+    return res.send({
+        status:0,
+        info:&apos;&#x672A;&#x9274;&#x6743;&#x8BA4;&#x8BC1;&apos;
+    });
+}
+</code></pre>
                                 
                                 </section>
                             
@@ -1593,7 +1728,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"next":{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"path":"1525959949.md","ref":"1525959949.md","articles":[]},"previous":{"title":"node.js","level":"1.5","depth":1,"ref":"","articles":[{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"path":"1525959948.md","ref":"1525959948.md","articles":[]},{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"path":"1525959949.md","ref":"1525959949.md","articles":[]},{"title":"node.js express 创建篇","level":"1.5.3","depth":2,"path":"1525959950.md","ref":"1525959950.md","articles":[]}]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959948.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"next":{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"path":"1525959949.md","ref":"1525959949.md","articles":[]},"previous":{"title":"node.js","level":"1.5","depth":1,"ref":"","articles":[{"title":"node.js 后台设计篇","level":"1.5.1","depth":2,"path":"1525959948.md","ref":"1525959948.md","articles":[]},{"title":"node.js 接口设计篇","level":"1.5.2","depth":2,"path":"1525959949.md","ref":"1525959949.md","articles":[]},{"title":"node.js express 创建篇","level":"1.5.3","depth":2,"path":"1525959950.md","ref":"1525959950.md","articles":[]}]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959948.md","mtime":"2018-05-10T23:06:41.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>

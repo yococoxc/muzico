@@ -1556,7 +1556,149 @@
     
                                 <section class="normal markdown-section">
                                 
-                                
+                                <h1 id="xamarin-&#x8DF3;&#x8F6C;&#x9875;&#x9762;">Xamarin &#x8DF3;&#x8F6C;&#x9875;&#x9762;</h1>
+<p>&#x51C6;&#x5907;&#x4E09;&#x4E2A; ContentPage &#x5BF9;&#x8C61;&#xFF0C;&#x6682;&#x65F6;&#x65E0;&#x9700;xaml&#xFF1A;
+MainPage.cs&#x3001;ModelessPage.cs&#x3001;ModalPage.cs&#x3002;</p>
+<p>MainPage.cs&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class MainPage : ContentPage
+    {
+        public MainPage()
+        {
+            Title = &quot;Main Page&quot;;
+
+            Button gotoModelessButton = new Button { 
+                Text = &quot;Go to modeless Page&quot;,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            gotoModelessButton.Clicked += async (sender, e) =&gt; {
+                await Navigation.PushAsync(new ModelessPage());
+            };
+
+            Button gotoModalButton = new Button { 
+                Text = &quot;Go to Modal Page&quot;,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.CenterAndExpand
+            };
+
+            gotoModalButton.Clicked += async (sender, e) =&gt; {
+                await Navigation.PushModalAsync(new ModalPage());
+            };
+
+
+            Content = new StackLayout
+            {
+                Children = {
+                    gotoModelessButton,
+                    gotoModalButton
+                }
+            };
+        }
+    }
+}
+</code></pre><p>ModelessPage.cs&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class ModelessPage : ContentPage
+    {
+        public ModelessPage()
+        {
+            Title = &quot;Modeless Page&quot;;
+
+            Button goBackButton = new Button {
+                Text = &quot;Back to Main&quot;,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            goBackButton.Clicked += async (sender, e) =&gt;  {
+                await Navigation.PopAsync();
+            };
+
+            Content = goBackButton;
+        }
+    }
+}
+</code></pre><p>ModalPage.cs&#xFF1A;</p>
+<pre><code>using System;
+
+using Xamarin.Forms;
+
+namespace one
+{
+    public class ModalPage : ContentPage
+    {
+        public ModalPage()
+        {
+            Title = &quot;Modal Page&quot;;
+
+            Button goBackButton = new Button
+            {
+                Text = &quot;Back to Main&quot;,
+                HorizontalOptions = LayoutOptions.Center,
+                VerticalOptions = LayoutOptions.Center
+            };
+
+            goBackButton.Clicked += async (sender, e) =&gt;  {
+                await Navigation.PopModalAsync();
+            };
+
+
+            Content = goBackButton;
+        }
+    }
+}
+</code></pre><p>&#x52A0;&#x8F7D;&#x5185;&#x5BB9;&#xFF1A;</p>
+<pre><code>using Xamarin.Forms;
+
+namespace one
+{
+    public partial class App : Application
+    {
+        public App()
+        {
+            MainPage = new NavigationPage(new MainPage());
+        }
+
+        protected override void OnStart()
+        {
+            // Handle when your app starts
+        }
+
+        protected override void OnSleep()
+        {
+            // Handle when your app sleeps
+        }
+
+        protected override void OnResume()
+        {
+            // Handle when your app resumes
+        }
+    }
+}
+</code></pre><p>&#x8FD0;&#x884C;~~&#xFF1A;
+<img src="assets/15082976471066.png" alt=""></p>
+<p>&#x70B9;&#x51FB;&quot;Go to modeless Page&quot;&#xFF1A;
+<img src="assets/15082976890857.png" alt=""></p>
+<p>&#x70B9;&#x51FB; &quot;Back to Main&quot; &#x5373;&#x53EF;&#x8FD4;&#x56DE;&#x5230;&#x9996;&#x9875;&#xFF0C;&#x4E0E; &#x9876;&#x90E8;&#x5DE6;&#x8FB9;&#x7684; Back &#x6309;&#x94AE;&#x540C;&#x7B49;&#x529F;&#x80FD;&#x3002;</p>
+<p>&#x70B9;&#x51FB;&quot;Go to Modal Page&quot;&#xFF1A;
+<img src="assets/15082978047046.png" alt=""></p>
+<p>&#x70B9;&#x51FB; &quot;Back to Main&quot; &#x5373;&#x53EF;&#x8FD4;&#x56DE;&#x5230;&#x9996;&#x9875;&#x3002;</p>
+<p>&#x603B;&#x7ED3;&#x4E00;&#x4E0B;&#xFF1A;</p>
+<p>Navigation.PushAsync() &#x7C7B;&#x4F3C; iOS &#x4E2D; UINavigationController &#x7684; pushViewController;</p>
+<p>Navigation.PushModalAsync() &#x7C7B;&#x4F3C; iOS &#x4E2D; presentViewController&#xFF1B;</p>
+
                                 
                                 </section>
                             
@@ -1599,7 +1741,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Xamarin 跳转页面","level":"1.9.4","depth":2,"next":{"title":"Xamarin 创建 Alert 与 await","level":"1.9.5","depth":2,"path":"1525959964.md","ref":"1525959964.md","articles":[]},"previous":{"title":"Xamarin.Forms 移动平台中常用页面","level":"1.9.3","depth":2,"path":"1525959962.md","ref":"1525959962.md","articles":[]},"dir":"neutral"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959963.md","mtime":"2018-05-10T14:39:02.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-10T16:19:18.318Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Xamarin 跳转页面","level":"1.9.4","depth":2,"next":{"title":"Xamarin 创建 Alert 与 await","level":"1.9.5","depth":2,"path":"1525959964.md","ref":"1525959964.md","articles":[]},"previous":{"title":"Xamarin.Forms 移动平台中常用页面","level":"1.9.3","depth":2,"path":"1525959962.md","ref":"1525959962.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"1525959963.md","mtime":"2018-05-11T00:48:15.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2018-05-11T00:53:32.337Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
